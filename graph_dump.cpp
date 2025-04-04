@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "akinator.h"
 
-TreeErrors TreeDumpDot(BinaryTree* Root)
+Errors TreeDumpDot(BinaryTree* Root)
 {
     char* buffer = (char*)calloc(BUFFER_SIZE, sizeof(char));
     if (buffer == NULL)
