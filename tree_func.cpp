@@ -35,6 +35,7 @@ Errors FreeTree(BinaryTree **Node)
     FreeTree(&((*Node)->left));
     FreeTree(&((*Node)->right));
 
+    free((*Node)->value);
     free(*Node);
     *Node = NULL;
 

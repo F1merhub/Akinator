@@ -45,7 +45,6 @@ Errors Menu(const char* base_name) {
 
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
     assert(Root != NULL);
-    *Root = NULL; // Явная инициализация
     assert(filename != NULL);
 
     FILE* file = fopen(filename, "r");
@@ -53,93 +52,79 @@ Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
         return FILE_ERROR;
     }
 
-    // Ищем начало дерева
+    // Пропускаем начальные пустые строки
     char line[MAX_LINE_LENGTH];
-    while (fgets(line, MAX_LINE_LENGTH, file)) {
-        if (strstr(line, "[")) break;
+    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
+        char* trimmed = trim_whitespace(line);
+        if (strlen(trimmed) == 0) continue;
+        if (trimmed[0] == '[') break;
     }
 
     Errors err = ParseSubtree(file, Root);
     fclose(file);
-
-    if (err == OK && *Root == NULL) {
-        err = FILE_FORMAT_ERROR;
-    }
     return err;
 }
 
 Errors ParseSubtree(FILE* file, BinaryTree** Node) {
     char line[MAX_LINE_LENGTH];
     char* content;
-    char* string_value = NULL; // Отдельная переменная для strdup
+    tree_element value;
 
-    // 1. Чтение значения узла
-    while (fgets(line, MAX_LINE_LENGTH, file)) {
+    // Читаем значение узла
+    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
         content = trim_whitespace(line);
         if (strlen(content) == 0) continue;
 
         // Обработка значения
-        if (content[0] == '?' && content[1] == '?') {
-            char* end = strrchr(content, '?');
-            if (!end || end == content+1) return FILE_FORMAT_ERROR;
+        if (content[0] == '?') {  // Вопрос
+            char* end = strchr(content + 1, '?');
+            if (!end) return FILE_FORMAT_ERROR;
             *end = '\0';
-            string_value = strdup(content + 2);
+            value = strdup(content + 1);
         }
-        else if (content[0] == '`' && content[1] == '`') {
-            char* end = strrchr(content, '`');
-            if (!end || end == content+1) return FILE_FORMAT_ERROR;
+        else if (content[0] == '`') {  // Объект
+            char* end = strchr(content + 1, '`');
+            if (!end) return FILE_FORMAT_ERROR;
             *end = '\0';
-            string_value = strdup(content + 2);
+            value = strdup(content + 1);
         }
         else if (content[0] == ']') {
             return OK;
         }
         else {
             return FILE_FORMAT_ERROR;
+        }
+
+        // Создаем узел
+        Errors err = CreateNode(Node, value);
+        if (err != OK) return err;
+
+        // Обработка поддеревьев
+        while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
+            content = trim_whitespace(line);
+            if (strlen(content) == 0) continue;
+
+            if (content[0] == '[') {
+                if ((*Node)->left == NULL) {
+                    err = ParseSubtree(file, &((*Node)->left));
+                } else {
+                    err = ParseSubtree(file, &((*Node)->right));
+                }
+                if (err != OK) return err;
+            }
+            else if (content[0] == ']') {
+                return OK;
+            }
         }
         break;
     }
-
-    if (!string_value) return FILE_FORMAT_ERROR;
-
-    // 2. Создание узла
-    Errors err = CreateNode(Node, string_value);
-    if (err != OK) {
-        free(string_value); // Освобождаем ТОЛЬКО если не удалось создать узел
-        return err;
-    }
-
-    // 3. Обработка поддеревьев
-    while (fgets(line, MAX_LINE_LENGTH, file)) {
-        content = trim_whitespace(line);
-        if (strlen(content) == 0) continue;
-
-        if (content[0] == '[') {
-            if ((*Node)->left == NULL) {
-                err = ParseSubtree(file, &(*Node)->left);
-            } else {
-                err = ParseSubtree(file, &(*Node)->right);
-            }
-            if (err != OK) return err;
-        }
-        else if (content[0] == ']') {
-            return OK;
-        }
-        else {
-            return FILE_FORMAT_ERROR;
-        }
-    }
-
     return OK;
 }
 
 char* trim_whitespace(char* str) {
-    char* end;
-    // Удаляем пробелы в начале
-    while(isspace(*str)) str++;
-    // Удаляем пробелы в конце
-    end = str + strlen(str) - 1;
-    while(end > str && isspace(*end)) end--;
-    *(end+1) = '\0';
+    while (isspace(*str)) str++;
+    char* end = str + strlen(str) - 1;
+    while (end > str && isspace(*end)) end--;
+    *(end + 1) = '\0';
     return str;
 }

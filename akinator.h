@@ -12,7 +12,7 @@
 
 #if defined(TREE_ELEMENT_CHAR)
 
-typedef const char* tree_element;
+typedef char* tree_element;
 #define TREE_ELEM_SPEC "%s"
 #define TREE_ELEM_TYPE STRING
 #elif defined(TREE_ELEMENT_INT)
