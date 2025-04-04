@@ -14,16 +14,16 @@ int main(int argc, char *argv[])
         base_name = argv[1];
     }
 
-    // Menu(base_name);
-    BinaryTree *Root = NULL;
+    Menu(base_name);
+    // BinaryTree *Root = NULL;
 
-    ReadTreeFromFile(&Root, base_name);
+    // ReadTreeFromFile(&Root, base_name);
 
-    PrintTree(Root);
+    // PrintTree(Root);
 
-    TreeDumpDot(Root);
+    // TreeDumpDot(Root);
 
-    FreeTree(&Root);
+    // FreeTree(&Root);
 
     return 0;
 }
@@ -38,9 +38,33 @@ Errors Menu(const char* base_name) {
            "[2] - dump\n"
            "[3] - exit\n\n");
 
-    int command = getchar();
-    printf("\n %d", command);
+    BinaryTree *Root = NULL
+
+    int command = 0;
+    scanf("%d", &command);
+
+    switch(command) {
+        case(GUESSING):
+
+            break;
+        case(BASE_DUMP):
+
+            break;
+        case(EXIT):
+
+            break;
+        default:
+            assert(0); // TODO не рассматриваю другие значения
+    }
+
     return OK;
+}
+
+Error Akinator() {
+
+
+
+
 }
 
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
@@ -65,7 +89,7 @@ Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
     return err;
 }
 
-Errors ParseSubtree(FILE* file, BinaryTree** Node) {
+Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработать 3 функции считывания дерева
     char line[MAX_LINE_LENGTH];
     char* content;
     tree_element value;
@@ -105,10 +129,10 @@ Errors ParseSubtree(FILE* file, BinaryTree** Node) {
             if (strlen(content) == 0) continue;
 
             if (content[0] == '[') {
-                if ((*Node)->left == NULL) {
-                    err = ParseSubtree(file, &((*Node)->left));
-                } else {
+                if ((*Node)->right == NULL) {
                     err = ParseSubtree(file, &((*Node)->right));
+                } else {
+                    err = ParseSubtree(file, &((*Node)->left));
                 }
                 if (err != OK) return err;
             }

@@ -4,7 +4,7 @@
 
 Errors TreeDumpDot(BinaryTree* Root)
 {
-    char* buffer = (char*)calloc(BUFFER_SIZE, sizeof(char));
+    char* buffer = (char*)calloc(DUMP_BUFFER_SIZE, sizeof(char));
     if (buffer == NULL)
     {
         fprintf(stderr, "Memory allocation failed\n");
@@ -14,16 +14,16 @@ Errors TreeDumpDot(BinaryTree* Root)
     int buffer_len = 0;
 
     // Начало .dot файла
-    buffer_len += snprintf(buffer + buffer_len, BUFFER_SIZE - (size_t)buffer_len,
+    buffer_len += snprintf(buffer + buffer_len, DUMP_BUFFER_SIZE - (size_t)buffer_len,
                            "digraph G {\n"
                            "\trankdir = TB;\n"
                            "\tbgcolor=\"#1e1e2e\";\n"
                            "\tnode [shape=rectangle, style=filled, fontname=Helvetica, fontsize=12, fillcolor=\"#89b4fa\", color=\"#cba6f7\", fontcolor=\"#1e1e2e\"];\n");
 
     // Генерация графа
-    buffer_len += GenerateGraph(Root, buffer, &buffer_len, BUFFER_SIZE);
+    buffer_len += GenerateGraph(Root, buffer, &buffer_len, DUMP_BUFFER_SIZE);
 
-    buffer_len += snprintf(buffer + buffer_len, BUFFER_SIZE - (size_t)buffer_len, "}\n");
+    buffer_len += snprintf(buffer + buffer_len, DUMP_BUFFER_SIZE - (size_t)buffer_len, "}\n");
 
     FILE* dump_file = fopen("GraphDump/dump.dot", "w+");
     if (!dump_file)

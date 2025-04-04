@@ -22,7 +22,6 @@ Errors CreateNode(BinaryTree **Node, tree_element value)
     return OK;
 }
 
-
 Errors FreeTree(BinaryTree **Node)
 {
     assert(Node); // нулевой указатель может передать сам программист

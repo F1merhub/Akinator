@@ -49,7 +49,15 @@ enum Type
     INT    = 1,
 };
 
-const size_t BUFFER_SIZE = 20000;
+enum Mode
+{
+    GUESSING  = 1,
+    BASE_DUMP = 2,
+    EXIT      = 10,
+};
+
+const size_t DUMP_BUFFER_SIZE = 20000;
+const int ANSWER_BUFFER_SIZE = 10;
 
 Errors CreateNode(BinaryTree **Node, tree_element value);
 Errors FreeTree(BinaryTree **Node);
