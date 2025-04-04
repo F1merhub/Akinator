@@ -94,19 +94,19 @@ Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработ
     char* content;
     tree_element value;
 
-    // Читаем значение узла
+
     while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
         content = trim_whitespace(line);
         if (strlen(content) == 0) continue;
 
-        // Обработка значения
-        if (content[0] == '?') {  // Вопрос
+
+        if (content[0] == '?') {
             char* end = strchr(content + 1, '?');
             if (!end) return FILE_FORMAT_ERROR;
             *end = '\0';
             value = strdup(content + 1);
         }
-        else if (content[0] == '`') {  // Объект
+        else if (content[0] == '`') {
             char* end = strchr(content + 1, '`');
             if (!end) return FILE_FORMAT_ERROR;
             *end = '\0';
@@ -119,11 +119,11 @@ Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработ
             return FILE_FORMAT_ERROR;
         }
 
-        // Создаем узел
+
         Errors err = CreateNode(Node, value);
         if (err != OK) return err;
 
-        // Обработка поддеревьев
+
         while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
             content = trim_whitespace(line);
             if (strlen(content) == 0) continue;
