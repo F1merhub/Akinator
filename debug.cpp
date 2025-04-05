@@ -1,92 +1,96 @@
 #include "akinator.h"
 
-Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
-    assert(Root != NULL);
-    assert(filename != NULL);
+Error Akinator() {
 
-    FILE* file = fopen(filename, "r");
-    if (file == NULL) {
-        return FILE_ERROR;
+    BinaryTree *Root = NULL;
+    char buffer[ANSWER_BUFFER_SIZE] = {0};
+
+    AkinatorPlay(Root);
+
+    while (1) {
+
+        printf("Хотите сыграть снова?\n"
+           "Ваш ответ: ");
+        assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            buffer[strlen(buffer) - 1] = '\0';
+
+        if (strcmp(buffer, "n")) {
+            break;
+        }
+        else if (strcmp(buffer, "y")) {
+            AkinatorPlay(Root);
+        }
+        else
+            assert(0); // добавить другие значения
     }
 
-    // Пропускаем начальные пустые строки
-    char line[MAX_LINE_LENGTH];
-    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-        char* trimmed = trim_whitespace(line);
-        if (strlen(trimmed) == 0) continue;
-        if (trimmed[0] == '[') break;
-    }
-
-    Errors err = ParseSubtree(file, Root);
-    fclose(file);
-    return err;
+    PrintTree(Root);
+    
+    TreeFree(&Root);
+    return 0;
 }
 
-Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработать 3 функции считывания дерева
-    char line[MAX_LINE_LENGTH];
-    char* content;
-    tree_element value;
+Error AkinatorPlay(BinaryTree *Root) {
+    if (Root == NULL) { // Первая Игра
+        ReadTreeFromFile(&Root, "Base.txt");
+        BinaryTree *cur = Root;
+    }
 
-    // Читаем значение узла
-    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-        content = trim_whitespace(line);
-        if (strlen(content) == 0) continue;
+    system("cls||clear");
 
-        // Обработка значения
-        if (content[0] == '?') {  // Вопрос
-            char* end = strchr(content + 1, '?');
-            if (!end) return FILE_FORMAT_ERROR;
-            *end = '\0';
-            value = strdup(content + 1);
+    char buffer[ANSWER_BUFFER_SIZE] = {0};
+
+    while (cur->left != NULL || cur->right != NULL) {
+        assert(cur->left != NULL && cur->right != NULL);
+        printf("Это ""%s?\n"
+               "Ваш ответ: ", cur->value);
+
+        assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
+        buffer[strlen(buffer) - 1] = '\0';
+
+        if (strcmp(buffer, "y") == 0) {
+            cur = cur->right;
         }
-        else if (content[0] == '`') {  // Объект
-            char* end = strchr(content + 1, '`');
-            if (!end) return FILE_FORMAT_ERROR;
-            *end = '\0';
-            value = strdup(content + 1);
-        }
-        else if (content[0] == ']') {
-            return OK;
+        else if (strcmp(buffer, "n") == 0) {
+            cur = cur->left;
         }
         else {
-            return FILE_FORMAT_ERROR;
+            assert(0); // TODO поправить на всевозможные ответы
         }
 
-        // Создаем узел
-        Errors err = CreateNode(Node, value);
-        if (err != OK) return err;
-
-        // Обработка поддеревьев
-        while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-            content = trim_whitespace(line);
-            if (strlen(content) == 0) continue;
-
-            if (content[0] == '[') {
-                if ((*Node)->right == NULL) {
-                    err = ParseSubtree(file, &((*Node)->right));
-                } else {
-                    err = ParseSubtree(file, &((*Node)->left));
-                }
-                if (err != OK) return err;
-            }
-            else if (content[0] == ']') {
-                return OK;
-            }
-        }
-        break;
+        assert(cur != NULL);
     }
-    return OK;
+    printf("Это ""%s?\n"
+           "Ваш Ответ: ", cur->value);
+
+    assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            buffer[strlen(buffer) - 1] = '\0';
+
+    if (strcmp(buffer, "y") == 0) {
+            printf("\nЯ угадал!");
+        }
+        else if (strcmp(buffer, "n") == 0) {
+            printf("Кто это был?\n"
+                   "Ваш Ответ: ");
+
+            assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            buffer[strlen(buffer) - 1] = '\0';
+
+            printf("Чем %s отличается от %s?\n"
+                   "Ваш Ответ: ", buffer, cur->value);
+
+            char feature_buffer[ANSWER_BUFFER_SIZE] = {0};
+            assert(fgets(feature_buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            feature_buffer[strlen(feature_buffer) - 1] = '\0';
+
+            AddNewTreeObject(cur, buffer, feature_buffer);
+        }
+        else {
+            assert(0); // TODO поправить на всевозможные ответы
+        }
+
+    return 0;
 }
-
-char* trim_whitespace(char* str) {
-    while (isspace(*str)) str++;
-    char* end = str + strlen(str) - 1;
-    while (end > str && isspace(*end)) end--;
-    *(end + 1) = '\0';
-    return str;
-}
-
-
 
 int main() {
 
@@ -98,15 +102,19 @@ int main() {
 
     char buffer[ANSWER_BUFFER_SIZE] = {0};
 
-    while (cur->left != NULL && cur->right != NULL) {
-        printf("Это""%s""?", cur->value);
+    while (cur->left != NULL || cur->right != NULL) {
+        assert(cur->left != NULL && cur->right != NULL);
+        printf("Это ""%s?\n"
+               "Ваш ответ: ", cur->value);
 
         assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
+        buffer[strlen(buffer) - 1] = '\0';
+
         if (strcmp(buffer, "y") == 0) {
-            cur = cur->left;
+            cur = cur->right;
         }
         else if (strcmp(buffer, "n") == 0) {
-            cur = cur->right;
+            cur = cur->left;
         }
         else {
             assert(0); // TODO поправить на всевозможные ответы
@@ -114,7 +122,36 @@ int main() {
 
         assert(cur != NULL);
     }
-    // PrintTree(Root);
+    printf("Это ""%s?\n"
+           "Ваш Ответ: ", cur->value);
+
+    assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            buffer[strlen(buffer) - 1] = '\0';
+
+    if (strcmp(buffer, "y") == 0) {
+            printf("\nЯ угадал!");
+        }
+        else if (strcmp(buffer, "n") == 0) {
+            printf("Кто это был?\n"
+                   "Ваш Ответ: ");
+
+            assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            buffer[strlen(buffer) - 1] = '\0';
+
+            printf("Чем %s отличается от %s?\n"
+                   "Ваш Ответ: ", buffer, cur->value);
+
+            char feature_buffer[ANSWER_BUFFER_SIZE] = {0};
+            assert(fgets(feature_buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
+            feature_buffer[strlen(feature_buffer) - 1] = '\0';
+
+            AddNewTreeObject(cur, buffer, feature_buffer);
+        }
+        else {
+            assert(0); // TODO поправить на всевозможные ответы
+        }
+
+    PrintTree(Root);
     FreeTree(&Root);
     return 0;
 }

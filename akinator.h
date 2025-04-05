@@ -57,7 +57,7 @@ enum Mode
 };
 
 const size_t DUMP_BUFFER_SIZE = 20000;
-const int ANSWER_BUFFER_SIZE = 10;
+const int ANSWER_BUFFER_SIZE = 30;
 
 Errors CreateNode(BinaryTree **Node, tree_element value);
 Errors FreeTree(BinaryTree **Node);
@@ -74,7 +74,9 @@ Errors ParseSubtree(FILE* base, BinaryTree** node);
 Errors TreeTraversal(BinaryTree *Node, int level);
 Errors PrintTree(BinaryTree *Root);
 char* trim_whitespace(char* str);
-
-
+void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer);
+Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
+Errors ParseSubtree(FILE* file, BinaryTree** Node);
+char* trim_whitespace(char* str);
 
 #endif // akinator_H
