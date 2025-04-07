@@ -78,5 +78,7 @@ void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer);
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
 Errors ParseSubtree(FILE* file, BinaryTree** Node);
 char* trim_whitespace(char* str);
+Errors Akinator();
+Errors AkinatorPlay(BinaryTree *Root);
 
 #endif // akinator_H

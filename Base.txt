@@ -1,56 +1,56 @@
 [
-    ?животное?
+    ?animal?
     [
-        ?черный?
+        ?black?
         [
-            `Дракоша`
+            `drakosha`
         ]
         [
-            `Полторашка`
+            `poltarashka`
         ]
     ]
     [
-        ?математик?
+        ?mathematician?
         [
-            ?лектор?
+            ?lector?
             [
-                ?любит котиков?
+                ?love cats?
                 [
-                    ?любит слово катарсис?
+                    ?love katarsis?
                     [
-                        `Райгородский`
+                        `Raigorodsky`
                     ]
                     [
-                        `Чубаров`
+                        `Chubarov`
                     ]
                 ]
                 [
-                    `Знамка`
+                    `Znamka`
                 ]
             ]
             [
-                ?ведёт ангем?
+                ?Teaches Angem?
                 [
-                    `Саулин`
+                    `Saulin`
                 ]
                 [
-                    ?физик?
+                    ?Physysist?
                     [
-                        `Усков`
+                        `Uskiv`
                     ]
                     [
-                        `Огарков`
+                        `Ogarkov`
                     ]
                 ]
             ]
         ]
         [
-            ?прогер?
+            ?proger?
             [
-                `Дед`
+                `Ded`
             ]
             [
-                `Овчинкин`
+                `Ovches`
             ]
         ]
     ]

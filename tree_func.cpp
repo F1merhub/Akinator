@@ -241,7 +241,7 @@ Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
 }
 
 Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработать 3 функции считывания дерева
-    char line[MAX_LINE_LENGTH];
+    char line[MAX_LINE_LENGTH];                    // TODO проверить 
     char* content;
     tree_element value;
 
