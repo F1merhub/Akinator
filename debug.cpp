@@ -1,44 +1,36 @@
 #include "akinator.h"
 
-// Errors Akinator() {
-//
-//     BinaryTree *Root = NULL;
-//     char buffer[ANSWER_BUFFER_SIZE] = {0};
-//     ReadTreeFromFile(&Root, "Base.txt");
-//
-//     AkinatorPlay(Root);
-//     PrintTree(&Root);
-// //     while (1) {
-// //
-// //         printf("Хотите сыграть снова?\n"
-// //            "Ваш ответ: ");
-// //         assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
-// //             buffer[strlen(buffer) - 1] = '\0';
-// //
-// //         if (strcmp(buffer, "n") == 0) {
-// //             break;
-// //         }
-// //         else if (strcmp(buffer, "y") == 0) {
-// //             printf("\npupu\n");
-// //             AkinatorPlay(Root);
-// //         }
-// //         else
-// //             assert(0); // добавить другие значения
-// //     }
-// //
-// //     PrintTree(Root);
-// //
-// //     FreeTree(&Root);
-//     return OK;
-// }
+Errors AkinatorMenu(BinaryTree *Root) {
 
-Errors AkinatorPlay(BinaryTree *Root) {
+        printf("Выберите Режим\n" // добавить сохранение дерева
+               "[1] - Играть\n"
+               "[3] - Выход\n"
+               "Ваш ответ: ");
+
+        int command = 0;
+        command = getchar();
+        getchar(); // пропустить \n
+
+        switch(command) {
+            case(KEY_1):
+                Akinator(Root);
+                break;
+            case(KEY_3):
+                break;
+            default:
+                assert(0);
+        }
+
+    FreeTree(&Root);
+    return OK;
+}
+
+void AkinatorPlay(BinaryTree *Root) { //TODO Проверка на плохую базу + добавить говорилку + проверка, что новый элемент уже существует
     assert(Root != NULL);
-    assert((Root->left != NULL) || (Root->right != NULL));
 
     BinaryTree *cur = Root;
 
-    system("cls||clear");
+    // system("cls||clear");
 
     char buffer[ANSWER_BUFFER_SIZE] = {0};
 
@@ -49,7 +41,7 @@ Errors AkinatorPlay(BinaryTree *Root) {
 
         assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
         buffer[strlen(buffer) - 1] = '\0';
-
+        // printf("\n%d\n", buffer[0]);
         if (strcmp(buffer, "y") == 0) {
             cur = cur->right;
         }
@@ -57,7 +49,7 @@ Errors AkinatorPlay(BinaryTree *Root) {
             cur = cur->left;
         }
         else {
-            assert(0); // TODO поправить на всевозможные ответы
+            assert(0); // TODO поправить на всевозможные ответы, либо циклов for
         }
 
         assert(cur != NULL);
@@ -90,21 +82,64 @@ Errors AkinatorPlay(BinaryTree *Root) {
 
         assert(fgets(cur->value, MAX_LINE_LENGTH, stdin) != NULL);
         (cur->value)[strlen(cur->value) - 1] = '\0';
-        PrintTree(Root);
-        printf("\n");
+
     }
     else {
         assert(0); // TODO поправить на всевозможные ответы
     }
 
+}
+
+Errors Menu(const char* base_name) {
+    assert(base_name != NULL);
+
+    printf("\nAkinatorGame\n"
+           "(c) F1mer\n\n"
+           "Chose game mode\n"
+           "[1] - guessing\n"
+           "[5] - exit\n\n");
+
+    int command = 0;
+    command = getchar();
+    getchar(); // пропустить \n
+
+    switch(command) {
+        case(KEY_1): // Акинатор
+            AkinatorMode(base_name);
+            break;
+        case(KEY_5):
+            printf("exit in menu");
+            break;
+        default:
+            assert(0); // NOTE пока только два режима
+    }
+
+    return OK;
+}
+
+Errors AkinatorMode(const char* base_name) {
+
+    assert(base_name != NULL);
+
+    BinaryTree *Root = NULL;
+    ReadTreeFromFile(&Root, base_name);
+    Akinator(Root);
+
+    return OK;
+}
+
+Errors Akinator(BinaryTree *Root) {
+    assert(Root != NULL);
+    printf("Добро Пожаловать в Акинатор\n"
+           "Я буду спрашивать признак, а ты отвечай y/n\n");
+    AkinatorPlay(Root);
+    AkinatorMenu(Root);
     return OK;
 }
 
 int main() {
-    BinaryTree *Root = NULL;
-    ReadTreeFromFile(&Root, "Base.txt");
-    AkinatorPlay(Root);
-    PrintTree(Root);
-    FreeTree(&Root);
+
+    Menu("Base.txt");
+
     return 0;
 }

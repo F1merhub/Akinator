@@ -56,6 +56,15 @@ enum Mode
     EXIT      = 10,
 };
 
+enum Keys
+{
+    KEY_1 = 49,
+    KEY_2 = 50,
+    KEY_3 = 51,
+    KEY_4 = 52,
+    KEY_5 = 53
+};
+
 const size_t DUMP_BUFFER_SIZE = 20000;
 const int ANSWER_BUFFER_SIZE = 30;
 
@@ -68,17 +77,18 @@ Errors DeleteNode(BinaryTree **Root, tree_element value);
 Errors TreeDumpDot(BinaryTree *Root);
 int GenerateGraph(BinaryTree *Node, char* buffer, int* buffer_len, const size_t BUFFER_SIZE);
 int CompareValue(tree_element a, tree_element b);
-Errors Menu(const char* base_name);
 Errors ReadTreeFromFile(BinaryTree** root, const char* base_name);
 Errors ParseSubtree(FILE* base, BinaryTree** node);
 Errors TreeTraversal(BinaryTree *Node, int level);
 Errors PrintTree(BinaryTree *Root);
 char* trim_whitespace(char* str);
-void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer);
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
 Errors ParseSubtree(FILE* file, BinaryTree** Node);
 char* trim_whitespace(char* str);
-Errors Akinator();
-Errors AkinatorPlay(BinaryTree *Root);
+Errors AkinatorMenu(BinaryTree *Root);
+void AkinatorPlay(BinaryTree *Root);
+Errors Menu(const char* base_name);
+Errors AkinatorMode(const char* base_name);
+Errors Akinator(BinaryTree *Root);
 
 #endif // akinator_H

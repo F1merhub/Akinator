@@ -241,7 +241,7 @@ Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
 }
 
 Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработать 3 функции считывания дерева
-    char line[MAX_LINE_LENGTH];                    // TODO проверить 
+    char line[MAX_LINE_LENGTH];                    // TODO проверить
     char* content;
     tree_element value;
 
@@ -304,9 +304,9 @@ char* trim_whitespace(char* str) {
     return str;
 }
 
-void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer) { // указатель на узел, Кто это был, затем признак
-    assert(cur != NULL && buffer != NULL && feature_buffer != NULL);
-    CreateNode(&(cur->left), cur->value);
-    CreateNode(&(cur->right), buffer);
-    cur->value = feature_buffer;
-}
+// void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer) { // указатель на узел, Кто это был, затем признак
+//     assert(cur != NULL && buffer != NULL && feature_buffer != NULL);
+//     CreateNode(&(cur->left), cur->value);
+//     CreateNode(&(cur->right), buffer);
+//     cur->value = feature_buffer;
+// }
