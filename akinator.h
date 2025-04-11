@@ -41,6 +41,7 @@ enum Errors
     FILE_NOT_OPEN         = 3,
     FILE_FORMAT_ERROR     = 4,
     FILE_ERROR            = 5,
+    STDIN_ERROR           = 6,
 };
 
 enum Type
@@ -91,6 +92,6 @@ Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
 Errors Akinator(BinaryTree *Root, const char* base_name);
 BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value);
-
+int GetAnswer(BinaryTree **cur);
 
 #endif // akinator_H

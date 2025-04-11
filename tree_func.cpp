@@ -323,3 +323,35 @@ char* trim_whitespace(char* str) {
     return str;
 }
 
+int GetAnswer(BinaryTree **cur) {
+    char buffer[ANSWER_BUFFER_SIZE] = {0};
+    while (1) {
+        if(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) == NULL) {
+            if (feof(stdin))
+                printf("Некоректное слово, попробуйте еще раз\n");
+            else
+                printf("Ошибка стандартного потока ввода, попробуйте еще раз\n");
+        }
+        else {
+            int len = strlen(buffer);
+            if (len > 0 && buffer[len - 1] == '\n') { // если все хорошо
+                buffer[len-1] = '\0';
+
+                if (strstr("yes", buffer) != NULL) {
+                    return 1;
+                }
+                else if (strstr("no", buffer) != NULL) {
+                    return 0;
+                }
+                else {
+                    printf("Ошибка, введите ответ yes/no\n"
+                           "Ваш ответ: ");
+                }
+            }
+            else {
+            printf("Введеное слово слишком большое, попробуйте еще раз\n"
+                   "Ваш ответ: ");
+            }
+        }
+    }
+}

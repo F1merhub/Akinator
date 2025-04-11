@@ -96,18 +96,29 @@ void AkinatorPlay(BinaryTree *Root) {
         printf("Это ""%s?\n"
                "Ваш ответ: ", cur->value);
 
-        assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
-        buffer[strlen(buffer) - 1] = '\0';
+        // assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
+        // buffer[strlen(buffer) - 1] = '\0';
 
-        if (strcmp(buffer, "y") == 0) {
-            cur = cur->right;
+        int answer = GetAnswer(&cur);
+        switch (answer) {
+            case(1):
+                cur = cur->right;
+                break;
+            case(0):
+                cur = cur->left;
+                break;
+            default:
+                break;
         }
-        else if (strcmp(buffer, "n") == 0) {
-            cur = cur->left;
-        }
-        else {
-            assert(0); // TODO поправить на всевозможные ответы, либо циклов for
-        }
+        // if (strcmp(buffer, "y") == 0) {
+        //     cur = cur->right;
+        // }
+        // else if (strcmp(buffer, "n") == 0) {
+        //     cur = cur->left;
+        // }
+        // else {
+        //     assert(0); // TODO поправить на всевозможные ответы, либо циклов for
+        // }
 
         assert(cur != NULL);
     }
