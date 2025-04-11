@@ -1,0 +1,10 @@
+[
+    ?animal?
+    [
+        `poltarashka`
+    ]
+    [
+        `pushistick`
+    ]
+
+]

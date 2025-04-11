@@ -85,10 +85,12 @@ char* trim_whitespace(char* str);
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
 Errors ParseSubtree(FILE* file, BinaryTree** Node);
 char* trim_whitespace(char* str);
-Errors AkinatorMenu(BinaryTree *Root);
+Errors AkinatorMenu(BinaryTree *Root, const char* base_name);
 void AkinatorPlay(BinaryTree *Root);
 Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
-Errors Akinator(BinaryTree *Root);
+Errors Akinator(BinaryTree *Root, const char* base_name);
+BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value);
+
 
 #endif // akinator_H

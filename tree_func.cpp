@@ -102,7 +102,26 @@ Errors AddNodeLoop(BinaryTree **Root, tree_element value)
     return OK;
 }
 
-BinaryTree* FindNode(BinaryTree *Root, tree_element value) // рекурсивный поиск
+BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value) {
+
+    if (Root == NULL || value == NULL) {
+        return NULL;
+    }
+    else if (Root->value != NULL && CompareValue(Root->value, value) == 0) {
+        return Root;
+    }
+    else {
+        BinaryTree *temp = NULL;
+        if ((temp = FindNodeAkinator(Root->left, value)) != NULL)
+            return temp;
+        else
+        if ((temp = FindNodeAkinator(Root->right, value)) != NULL)
+            return temp;
+    }
+    return NULL;
+}
+
+BinaryTree* FindNode(BinaryTree *Root, tree_element value) // Подходит для сортирующего дерева, но не акинатора
 {
     assert(Root != NULL);
 
@@ -304,9 +323,3 @@ char* trim_whitespace(char* str) {
     return str;
 }
 
-// void AddNewTreeObject(BinaryTree *cur, char *buffer, char *feature_buffer) { // указатель на узел, Кто это был, затем признак
-//     assert(cur != NULL && buffer != NULL && feature_buffer != NULL);
-//     CreateNode(&(cur->left), cur->value);
-//     CreateNode(&(cur->right), buffer);
-//     cur->value = feature_buffer;
-// }
