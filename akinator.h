@@ -92,6 +92,9 @@ Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
 Errors Akinator(BinaryTree *Root, const char* base_name);
 BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value);
-int GetAnswer(BinaryTree **cur);
+int GetAnswer();
+char* GetObject();
+int GetMode();
+Errors DefinitionMode(const char* name_base);
 
 #endif // akinator_H

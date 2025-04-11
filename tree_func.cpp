@@ -323,21 +323,23 @@ char* trim_whitespace(char* str) {
     return str;
 }
 
-int GetAnswer(BinaryTree **cur) {
+int GetAnswer() {
     char buffer[ANSWER_BUFFER_SIZE] = {0};
     while (1) {
         if(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) == NULL) {
             if (feof(stdin))
                 printf("Некоректное слово, попробуйте еще раз\n");
             else
-                printf("Ошибка стандартного потока ввода, попробуйте еще раз\n");
+                printf("Ошибка стандартного потока ввода, попробуйте еще раз\n"); // NOTE или лучше ошибку?
         }
         else {
             int len = strlen(buffer);
             if (len > 0 && buffer[len - 1] == '\n') { // если все хорошо
                 buffer[len-1] = '\0';
-
-                if (strstr("yes", buffer) != NULL) {
+                if (buffer[0] == NULL) {
+                    printf("Ошибка, введите ответ yes/no");
+                }
+                else if (strstr("yes", buffer) != NULL) {
                     return 1;
                 }
                 else if (strstr("no", buffer) != NULL) {
@@ -355,3 +357,25 @@ int GetAnswer(BinaryTree **cur) {
         }
     }
 }
+
+char* GetObject() {
+    char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
+    while (1) {
+        if(fgets(object_buffer, MAX_LINE_LENGTH, stdin) == NULL) {
+            if (feof(stdin))
+                printf("Некоректное слово, попробуйте еще раз\n");
+            else
+                printf("Ошибка стандартного потока ввода, попробуйте еще раз\n"); // NOTE или лучше ошибку?
+        }
+        int len = strlen(object_buffer);
+        if (len > 0 && object_buffer[len - 1] == '\n') { // если все хорошо
+            object_buffer[len-1] = '\0';
+            return object_buffer;
+        }
+        else {
+            printf("Введеное слово слишком большое, попробуйте еще раз\n"
+                   "Ваш ответ: ");
+        }
+    }
+}
+

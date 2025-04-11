@@ -7,8 +7,8 @@ Errors Menu(const char* base_name) {
            "(c) F1mer\n\n"
            "Chose game mode\n"
            "[1] - Угадывание\n"
-
-
+           "[2] - Определение\n"
+           "[3] - Сравнение\n"
            "[4] - Распечатка Базы данных\n"
            "[5] - Выход\n"
            "Ваш ответ: ");
@@ -31,6 +31,22 @@ Errors Menu(const char* base_name) {
     }
 
     return OK;
+}
+
+Errors DefinitionMode(const char* name_base) {
+    assert(name_base != NULL);
+    BinaryTree *Root = NULL;
+    ReadTreeFromFile(&Root, base_name);
+    Definition(&Root, name_base);
+}
+
+Errors Definition(BinaryTree *Root, const char* name_base) {
+    assert((name_base != NULL) && (Root != NULL));
+    char *object = GetObject(); // TODO не забыть очистить память в конце
+    
+
+
+
 }
 
 Errors AkinatorMode(const char* base_name) {
@@ -88,7 +104,6 @@ void AkinatorPlay(BinaryTree *Root) {
     assert(Root != NULL);
 
     BinaryTree *cur = Root;
-    char buffer[ANSWER_BUFFER_SIZE] = {0};
 
     while (cur->left != NULL || cur->right != NULL) {
         assert(cur->left != NULL && cur->right != NULL);
@@ -96,10 +111,7 @@ void AkinatorPlay(BinaryTree *Root) {
         printf("Это ""%s?\n"
                "Ваш ответ: ", cur->value);
 
-        // assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL); // TODO поставить проверку
-        // buffer[strlen(buffer) - 1] = '\0';
-
-        int answer = GetAnswer(&cur);
+        int answer = GetAnswer();
         switch (answer) {
             case(1):
                 cur = cur->right;
@@ -110,57 +122,46 @@ void AkinatorPlay(BinaryTree *Root) {
             default:
                 break;
         }
-        // if (strcmp(buffer, "y") == 0) {
-        //     cur = cur->right;
-        // }
-        // else if (strcmp(buffer, "n") == 0) {
-        //     cur = cur->left;
-        // }
-        // else {
-        //     assert(0); // TODO поправить на всевозможные ответы, либо циклов for
-        // }
 
         assert(cur != NULL);
     }
     printf("Это ""%s?\n"
            "Ваш Ответ: ", cur->value);
 
-    assert(fgets(buffer, ANSWER_BUFFER_SIZE, stdin) != NULL);
-        buffer[strlen(buffer) - 1] = '\0';
-
-    if (strcmp(buffer, "y") == 0) {
+    int answer = GetAnswer();
+    switch (answer) {
+        case(1):
             printf("\nЯ угадал!");
-    }
-    else if (strcmp(buffer, "n") == 0) {
-        printf("Кто это был?\n"
-                "Ваш Ответ: ");
+            break;
+        case(0): {
+            printf("Кто это был?\n"
+            "Ваш Ответ: ");
 
-        char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-        assert(fgets(object_buffer, MAX_LINE_LENGTH, stdin) != NULL);
-        object_buffer[strlen(object_buffer) - 1] = '\0';
-        if (FindNodeAkinator(Root, object_buffer) != NULL) {
-            printf("Объект был найден в базе данных\n"
-                   "Попробуйте сыграть еще раз\n");
+            char *object_buffer = GetObject();
+            if (FindNodeAkinator(Root, object_buffer) != NULL) {
+                printf("Объект был найден в базе данных\n"
+                        "Попробуйте сыграть еще раз\n");
+            }
+            else {
+                CreateNode(&(cur->right), NULL);
+                CreateNode(&(cur->left), NULL);
+                cur->right->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
+                cur->left->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
+
+                strcpy(cur->right->value, object_buffer);
+                strcpy(cur->left->value, cur->value);
+
+                printf("Чем %s отличается от %s?\n"
+                    "Ваш Ответ: ", cur->right->value, cur->value);
+
+                cur->value = GetObject();
+            }
+
+            break;
         }
-        else {
-            CreateNode(&(cur->right), NULL);
-            CreateNode(&(cur->left), NULL);
-            cur->right->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-            cur->left->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-
-            strcpy(cur->right->value, object_buffer);
-            strcpy(cur->left->value, cur->value);
-
-            printf("Чем %s отличается от %s?\n"
-                   "Ваш Ответ: ", cur->right->value, cur->value);
-
-            assert(fgets(cur->value, MAX_LINE_LENGTH, stdin) != NULL);
-            (cur->value)[strlen(cur->value) - 1] = '\0';
+        default:
+            break;
         }
-    }
-    else {
-        assert(0); // TODO поправить на всевозможные ответы
-    }
 
 }
 
