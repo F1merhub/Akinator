@@ -39,7 +39,7 @@ typedef struct BinaryTree
 enum Errors
 {
     OK                    = 0,
-    ALLOCATION_ERROR           = 1,
+    ALLOCATION_ERROR      = 1,
     NODE_NULL             = 2,
     FILE_NOT_OPEN         = 3,
     FILE_FORMAT_ERROR     = 4,
@@ -89,11 +89,11 @@ char* trim_whitespace(char* str);
 Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
 Errors ParseSubtree(FILE* file, BinaryTree** Node);
 char* trim_whitespace(char* str);
-Errors AkinatorMenu(BinaryTree *Root, const char* base_name);
+void AkinatorMenu(BinaryTree *Root, const char* base_name);
 void AkinatorPlay(BinaryTree *Root);
 Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
-Errors Akinator(BinaryTree *Root, const char* base_name);
+void Akinator(BinaryTree *Root, const char* base_name);
 BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
@@ -107,5 +107,6 @@ Errors ComparingMode(const char *base_name);
 Errors Comparing(BinaryTree *Root, const char *base_name);
 void clean_console();
 Errors ComparingMenu(BinaryTree *Root, const char *base_name);
+int GetChar();
 
 #endif // akinator_H

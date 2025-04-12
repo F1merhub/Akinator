@@ -102,7 +102,7 @@ Errors AddNodeLoop(BinaryTree **Root, tree_element value)
     return OK;
 }
 
-Stack* FindNodePath(const char* value, BinaryTree *Root) { // TODO стек потом освободить
+Stack* FindNodePath(const char* value, BinaryTree *Root) {
     assert(value != NULL);
     assert(Root != NULL);
     Stack* node_path = (Stack*)calloc(1, sizeof(Stack)); // TODO проверка
@@ -429,4 +429,25 @@ char* GetObject() {
 
 void clean_console() {
     system("@cls||clear");
+}
+
+int GetChar() {
+    int command = 0;
+    while (1) {
+        command = getchar();
+        while (getchar() != '\n');
+        switch(command) {
+            case(KEY_1): // Акинатор
+            case(KEY_2): // Определение
+            case(KEY_3):
+            case(KEY_4): // TODO распечатка
+            case(KEY_5): // Выход
+                return command;
+                break;
+            default:
+                printf("Неверная комманда, попробуйте еще раз\n"
+                       "Ваш ответ: ");
+                break;
+        }
+    }
 }

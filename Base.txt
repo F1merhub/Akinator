@@ -1,47 +1,23 @@
 [
     ?animal?
     [
-        ?black?
-        [
-            `drakosha`
-        ]
+        ?rt_cat?
         [
             `poltarashka`
+        ]
+        [
+            `luna`
         ]
     ]
     [
         ?mathematician?
         [
-            ?lector?
+            ?kind?
             [
-                ?love cats?
-                [
-                    ?love katarsis?
-                    [
-                        `Raigorodsky`
-                    ]
-                    [
-                        `Chubarov`
-                    ]
-                ]
-                [
-                    `Znamka`
-                ]
+                `Chubarov`
             ]
             [
-                ?Teaches Angem?
-                [
-                    `Saulin`
-                ]
-                [
-                    ?Physysist?
-                    [
-                        `Uskiv`
-                    ]
-                    [
-                        `Ogarkov`
-                    ]
-                ]
+                `Umnov`
             ]
         ]
         [
@@ -50,7 +26,7 @@
                 `Ded`
             ]
             [
-                `Ovches`
+                `Holin`
             ]
         ]
     ]

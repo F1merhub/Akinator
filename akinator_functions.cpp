@@ -247,6 +247,7 @@ Errors AkinatorMode(const char* base_name) {
 
     BinaryTree *Root = NULL;
     ReadTreeFromFile(&Root, base_name); // TODO проверка на нормальное дерево
+    clean_console();
     Akinator(Root, base_name);
 
     return OK;
@@ -260,6 +261,7 @@ void Akinator(BinaryTree *Root, const char* base_name) {
     printf("Добро Пожаловать в Акинатор\n"
            "Я буду спрашивать признак, а ты отвечай y/n\n");
     AkinatorPlay(Root);
+    printf("\n");
     AkinatorMenu(Root, base_name);
 }
 
@@ -276,6 +278,7 @@ void AkinatorMenu(BinaryTree *Root, const char* base_name) {
 
     switch(command) {
         case(KEY_1):
+            clean_console();
             Akinator(Root, base_name);
             break;
         case(KEY_2): // TODO Сделать сохранение базы данных
@@ -355,11 +358,4 @@ void AkinatorPlay(BinaryTree *Root) {
             break;
         }
 
-}
-
-int main() {
-
-    Menu("Base.txt");
-
-    return 0;
 }
