@@ -1,4 +1,4 @@
-#include "main.h"
+#include "stack.h"
 
 int verificator(struct stack *stk)
 {
@@ -45,7 +45,8 @@ const char* decoder(int error) {
         return "canary1 was changed\n";
     if (error == BAD_CANARY_2)
         return "canary2 was changed\n";
-
+    else
+        return NULL;
     };
 
 
@@ -113,10 +114,8 @@ int stack_constructor(struct stack * stk, int capacity) {
 
 
 int stack_push(struct stack*stk, stack_elem value) {  // добавить с реалоком
-    if (stk_assert(stk) == ERROR)
-        return dgdfg;
-
-    if (stk->size  == stk->capacity) {
+    stk_assert(stk);
+        if (stk->size  == stk->capacity) {
         printf("size bigger than capacity\n");
         assert(0);
     }
@@ -128,15 +127,16 @@ int stack_push(struct stack*stk, stack_elem value) {  // добавить с р�
     return 0;
 }
 
-
-int stack_pop(struct stack*stk, stack_elem *pop_elem) { // добавить реаллок вниз
+// ПОПРАВИЛ ФУНКЦИЮ, ЧТОБЫ НЕ ВОЗВРАЩАЛА ЭЛЕМЕНТ
+// int stack_pop(struct stack*stk, stack_elem *pop_elem)
+int stack_pop(struct stack*stk) { // добавить реаллок вниз
     stk_assert(stk);
     if (stk->size  == 0) {
         printf("empty stack\n");
         assert(0);
     }
     stk->size--;
-    *pop_elem = stk->data[stk->size + 1];
+    // *pop_elem = stk->data[stk->size + 1];
     stk->data[stk->size + 1] = POISON;
     stk_assert(stk);
 
@@ -155,5 +155,22 @@ int stack_dump(struct stack*stk) {
            "%p - pointer on data\n",
            stk->capacity, stk->size, stk->data);
 
+    return 0;
+}
+
+int realloc_up(struct stack *stk) {
+    stk_assert(stk);
+    if (increase_coefficient <= 0) {
+        printf("change increase_coefficient\n"); // TODO исправить на возврат ошибки
+        assert(0);
+    }
+    stack_elem *new_ptr = (stack_elem *)realloc(stk->data, (stk -> capacity + 2 + increase_coefficient) * sizeof(stack_elem));
+    if(new_ptr == NULL) {
+        printf("memory reallocation error\n");
+        assert(0);
+    }
+    stk->data = new_ptr;
+    stk->capacity = stk->capacity + increase_coefficient;
+    stk->data[stk->capacity + 1] = CANARY;
     return 0;
 }

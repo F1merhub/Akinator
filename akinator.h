@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <string.h>
 #include <ctype.h>
+#include "stack.h"
 
 #define MAX_LINE_LENGTH 256
 #define TREE_ELEMENT_CHAR // NOTE в акинаторе используются лишь строки, для ввода типа данных нужно менять compare_value для вывода ошибок, а не assert
@@ -72,7 +73,7 @@ const int ANSWER_BUFFER_SIZE = 30;
 Errors CreateNode(BinaryTree **Node, tree_element value);
 Errors FreeTree(BinaryTree **Node);
 Errors AddNode(BinaryTree **Root, tree_element value);
-BinaryTree* FindNode(BinaryTree *Root, tree_element value);
+BinaryTree* FindNodeSortTree(BinaryTree *Root, tree_element value);
 Errors AddNodeLoop(BinaryTree **Root, tree_element value);
 Errors DeleteNode(BinaryTree **Root, tree_element value);
 Errors TreeDumpDot(BinaryTree *Root);
@@ -91,10 +92,14 @@ void AkinatorPlay(BinaryTree *Root);
 Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
 Errors Akinator(BinaryTree *Root, const char* base_name);
-BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value);
+BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
 int GetMode();
 Errors DefinitionMode(const char* name_base);
+Stack* FindNodePath(const char* value, BinaryTree *Root);
+int FindNode(const char* value, BinaryTree *Node, Stack* node_path);
+
+
 
 #endif // akinator_H

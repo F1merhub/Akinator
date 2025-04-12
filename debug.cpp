@@ -33,17 +33,20 @@ Errors Menu(const char* base_name) {
     return OK;
 }
 
-Errors DefinitionMode(const char* name_base) {
-    assert(name_base != NULL);
+Errors DefinitionMode(const char* base_name) {
+    assert(base_name != NULL);
     BinaryTree *Root = NULL;
     ReadTreeFromFile(&Root, base_name);
-    Definition(&Root, name_base);
+    Definition(&Root, base_name);
 }
 
-Errors Definition(BinaryTree *Root, const char* name_base) {
-    assert((name_base != NULL) && (Root != NULL));
+Errors Definition(BinaryTree *Root, const char* base_name) {
+    assert((base_name != NULL) && (Root != NULL));
+
+    printf("Введите слово, определения которого хотите посомтреть\n"
+           "Ваше слово: ");
     char *object = GetObject(); // TODO не забыть очистить память в конце
-    
+
 
 
 
@@ -138,7 +141,7 @@ void AkinatorPlay(BinaryTree *Root) {
             "Ваш Ответ: ");
 
             char *object_buffer = GetObject();
-            if (FindNodeAkinator(Root, object_buffer) != NULL) {
+            if (CheckObjectExistance(Root, object_buffer) != NULL) {
                 printf("Объект был найден в базе данных\n"
                         "Попробуйте сыграть еще раз\n");
             }

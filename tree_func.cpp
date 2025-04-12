@@ -102,7 +102,52 @@ Errors AddNodeLoop(BinaryTree **Root, tree_element value)
     return OK;
 }
 
-BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value) {
+Stack* FindNodePath(const char* value, BinaryTree *Root) { // TODO стек потом освободить
+    assert(value != NULL);
+    assert(Root != NULL);
+    Stack* node_path = (Stack*)calloc(1, sizeof(Stack)); // TODO проверка
+    stack_constructor(node_path, STACK_CAPACITY);
+    FindNode(value, Root, node_path);
+    return node_path;
+}
+
+int FindNode(const char* value, BinaryTree *Node, Stack* node_path) {
+    assert(value != NULL);
+    assert(Node != NULL);
+    assert(node_path != NULL);
+
+    stack_push(node_path, Node);
+
+    if (strcmp(value, Node->value) == 0)
+    {
+        return 1;
+    }
+
+    else
+    {
+        if (Node->left != NULL && Node->right != NULL) {
+            if (FindNode(value, Node->left, node_path) || FindNode(value, Node->right, node_path))
+            {
+                return 1;
+            }
+
+            else
+            {
+                stack_pop(node_path); // зачкем
+                return 0;
+            }
+        }
+        else if (Node->left == NULL && Node->right == NULL)
+        {
+            stack_pop(node_path);
+            return 0;
+        }
+
+        return 0;
+    }
+}
+
+BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value) {
 
     if (Root == NULL || value == NULL) {
         return NULL;
@@ -112,16 +157,16 @@ BinaryTree* FindNodeAkinator(BinaryTree *Root, tree_element value) {
     }
     else {
         BinaryTree *temp = NULL;
-        if ((temp = FindNodeAkinator(Root->left, value)) != NULL)
+        if ((temp = CheckObjectExistance(Root->left, value)) != NULL)
             return temp;
         else
-        if ((temp = FindNodeAkinator(Root->right, value)) != NULL)
+        if ((temp = CheckObjectExistance(Root->right, value)) != NULL)
             return temp;
     }
     return NULL;
 }
 
-BinaryTree* FindNode(BinaryTree *Root, tree_element value) // Подходит для сортирующего дерева, но не акинатора
+BinaryTree* FindNodeSortTree(BinaryTree *Root, tree_element value) // Подходит для сортирующего дерева, но не акинатора
 {
     assert(Root != NULL);
 
@@ -130,11 +175,11 @@ BinaryTree* FindNode(BinaryTree *Root, tree_element value) // Подходит �
 
     if (CompareValue(value, Root->value) < 0)  // Использование CompareValue
     {
-        return FindNode(Root->left, value);
+        return FindNodeSortTree(Root->left, value);
     }
     else
     {
-        return FindNode(Root->right, value);
+        return FindNodeSortTree(Root->right, value);
     }
 
     return NULL;
@@ -360,6 +405,9 @@ int GetAnswer() {
 
 char* GetObject() {
     char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
+    if (object_buffer == NULL) {
+        return ALLOCATION_ERROR;
+    }
     while (1) {
         if(fgets(object_buffer, MAX_LINE_LENGTH, stdin) == NULL) {
             if (feof(stdin))

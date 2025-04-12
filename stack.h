@@ -6,14 +6,18 @@
 #include <string.h>
 #include <assert.h>
 
-typedef double stack_elem;
+typedef char* stack_elem;
 
-struct stack
+const int INCREASE_COEFFICIENT = 10;
+
+const int STACK_CAPACITY = 100;
+
+typedef struct Stack
 {
     stack_elem *data;
     int size;
     int capacity;
-};
+} Stack;
 
 enum errorcode
 {
@@ -23,7 +27,7 @@ enum errorcode
     STK_BAD_SIZE =                  3,  // size < 0
     STK_BAD_CAPACITY =              4,  // capacity <= 0
     STK_SIZE_LARGER_CAPACITY =      5,  // вышли за размер стэка
-    // REALLOCK_FAIL =              6,  // не получилось расширить стэк
+    REALLOCK_FAIL =                 6,  // не получилось расширить стэк
     BAD_CANARY_1 =                  7,  // левая канарейка
     BAD_CANARY_2 =                  8,  // правая канарейка
 };
@@ -44,9 +48,11 @@ int stack_constructor(struct stack * stk, int capacity);
 
 int stack_push(struct stack*stk, stack_elem value);
 
-int stack_pop(struct stack*stk, stack_elem *pop_elem);
+int stack_pop(struct stack*stk);
 
 int stack_dump(struct stack*stk);
+
+int realloc_up(struct stack *stk);
 
 const stack_elem CANARY = (stack_elem)0xBADC0FFEE;
 
