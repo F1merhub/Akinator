@@ -1,5 +1,5 @@
 #include "akinator.h"
-
+#include "stack.h"
 /*
     Создает узел по указателю на указатель равный null
     используем в Addnode
@@ -12,7 +12,7 @@ Errors CreateNode(BinaryTree **Node, tree_element value)
 
     if (*Node == NULL)
     {
-        return ALLOC_ERROR;
+        return ALLOCATION_ERROR;
     }
 
     (*Node)->value = value;
@@ -405,9 +405,9 @@ int GetAnswer() {
 
 char* GetObject() {
     char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-    if (object_buffer == NULL) {
-        return ALLOCATION_ERROR;
-    }
+    // if (object_buffer == NULL) {
+    //     return ALLOCATION_ERROR; // TODO как обработать ошибки
+    // }
     while (1) {
         if(fgets(object_buffer, MAX_LINE_LENGTH, stdin) == NULL) {
             if (feof(stdin))

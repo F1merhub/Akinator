@@ -1,4 +1,6 @@
 #include "akinator.h"
+#include "stack.h"
+
 
 Errors Menu(const char* base_name) {
     assert(base_name != NULL);
@@ -33,24 +35,24 @@ Errors Menu(const char* base_name) {
     return OK;
 }
 
-Errors DefinitionMode(const char* base_name) {
-    assert(base_name != NULL);
-    BinaryTree *Root = NULL;
-    ReadTreeFromFile(&Root, base_name);
-    Definition(&Root, base_name);
-}
-
-Errors Definition(BinaryTree *Root, const char* base_name) {
-    assert((base_name != NULL) && (Root != NULL));
-
-    printf("Введите слово, определения которого хотите посомтреть\n"
-           "Ваше слово: ");
-    char *object = GetObject(); // TODO не забыть очистить память в конце
-
-
-
-
-}
+// Errors DefinitionMode(const char* base_name) {
+//     assert(base_name != NULL);
+//     BinaryTree *Root = NULL;
+//     ReadTreeFromFile(&Root, base_name);
+//     Definition(&Root, base_name);
+// }
+//
+// Errors Definition(BinaryTree *Root, const char* base_name) {
+//     assert((base_name != NULL) && (Root != NULL));
+//
+//     printf("Введите слово, определения которого хотите посомтреть\n"
+//            "Ваше слово: ");
+//     char *object = GetObject(); // TODO не забыть очистить память в конце
+//
+//
+//
+//
+// }
 
 Errors AkinatorMode(const char* base_name) {
 

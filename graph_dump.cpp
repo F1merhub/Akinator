@@ -8,7 +8,7 @@ Errors TreeDumpDot(BinaryTree* Root)
     if (buffer == NULL)
     {
         fprintf(stderr, "Memory allocation failed\n");
-        return ALLOC_ERROR;
+        return ALLOCATION_ERROR;
     }
 
     int buffer_len = 0;

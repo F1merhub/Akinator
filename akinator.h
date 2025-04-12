@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <string.h>
 #include <ctype.h>
-#include "stack.h"
+// #include "stack.h"
 
 #define MAX_LINE_LENGTH 256
 #define TREE_ELEMENT_CHAR // NOTE в акинаторе используются лишь строки, для ввода типа данных нужно менять compare_value для вывода ошибок, а не assert
@@ -27,6 +27,8 @@ typedef int tree_element;
 
 #endif
 
+struct Stack;
+
 typedef struct BinaryTree
 {
     tree_element value;
@@ -37,7 +39,7 @@ typedef struct BinaryTree
 enum Errors
 {
     OK                    = 0,
-    ALLOC_ERROR           = 1,
+    ALLOCATION_ERROR           = 1,
     NODE_NULL             = 2,
     FILE_NOT_OPEN         = 3,
     FILE_FORMAT_ERROR     = 4,
@@ -96,7 +98,7 @@ BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
 int GetMode();
-Errors DefinitionMode(const char* name_base);
+// Errors DefinitionMode(const char* name_base);
 Stack* FindNodePath(const char* value, BinaryTree *Root);
 int FindNode(const char* value, BinaryTree *Node, Stack* node_path);
 

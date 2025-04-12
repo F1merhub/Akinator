@@ -1,6 +1,7 @@
+#include "akinator.h"
 #include "stack.h"
 
-int verificator(struct stack *stk)
+int verificator(Stack *stk)
 {
 
     int error = 0;
@@ -34,11 +35,11 @@ const char* decoder(int error) {
     if (error == STK_OUT_MEMORY)
         return "memory allocation error\n";
     if (error == STK_NULL_POINTER)
-        return "stack pointer is null\n";
+        return "Stackpointer is null\n";
     if (error == STK_BAD_SIZE)
-        return "stack size < 0\n";
+        return "Stacksize < 0\n";
     if (error == STK_BAD_CAPACITY)
-        return "stack capacity <= 0\n";
+        return "Stackcapacity <= 0\n";
     if (error == STK_SIZE_LARGER_CAPACITY)
         return "size > capacity\n";
     if (error == BAD_CANARY_1)
@@ -50,7 +51,7 @@ const char* decoder(int error) {
     };
 
 
-void stk_assert(struct stack *stk) {
+void stk_assert(Stack *stk) {
     int error = verificator(stk);
     if (error) {
         printf("%s", decoder(error));
@@ -59,7 +60,7 @@ void stk_assert(struct stack *stk) {
 }
 
 
-int stk_null_check(struct stack *stk) {  // много раз встречается
+int stk_null_check(Stack *stk) {  // много раз встречается
     if (stk == NULL) {
         printf("stk pointer is NULL\n");
         assert(0);
@@ -67,7 +68,7 @@ int stk_null_check(struct stack *stk) {  // много раз встречает
     return 0;
 }
 
-int put_canary(struct stack *stk) {
+int put_canary(Stack *stk) {
     stk_null_check(stk);
     stk->data[0] = CANARY;
     stk->data[stk->capacity + 1] = CANARY;
@@ -76,7 +77,7 @@ int put_canary(struct stack *stk) {
 }
 
 
-int stack_destructor(struct stack* stk) {
+int stack_destructor(Stack* stk) {
     stk_null_check(stk);
     for (int i = 0; i < stk ->capacity + 1; ++i)
         stk->data[i] = POISON;
@@ -89,7 +90,7 @@ int stack_destructor(struct stack* stk) {
 }
 
 
-int stack_constructor(struct stack * stk, int capacity) {
+int stack_constructor(Stack* stk, int capacity) {
 
     stk_null_check(stk);
 
@@ -113,7 +114,7 @@ int stack_constructor(struct stack * stk, int capacity) {
 }
 
 
-int stack_push(struct stack*stk, stack_elem value) {  // добавить с реалоком
+int stack_push(Stack *stk, stack_elem value) {  // добавить с реалоком
     stk_assert(stk);
         if (stk->size  == stk->capacity) {
         printf("size bigger than capacity\n");
@@ -129,7 +130,7 @@ int stack_push(struct stack*stk, stack_elem value) {  // добавить с р�
 
 // ПОПРАВИЛ ФУНКЦИЮ, ЧТОБЫ НЕ ВОЗВРАЩАЛА ЭЛЕМЕНТ
 // int stack_pop(struct stack*stk, stack_elem *pop_elem)
-int stack_pop(struct stack*stk) { // добавить реаллок вниз
+int stack_pop(Stack *stk) { // добавить реаллок вниз
     stk_assert(stk);
     if (stk->size  == 0) {
         printf("empty stack\n");
@@ -144,10 +145,10 @@ int stack_pop(struct stack*stk) { // добавить реаллок вниз
 }
 
 
-int stack_dump(struct stack*stk) {
+int stack_dump(Stack *stk) {
     stk_assert(stk);
     for (int i = 1; i < (stk->size) + 1; ++i) {
-        printf("%lg ", stk->data[i]);
+        printf("%p ", stk->data[i]);
     }
     printf("\n"
            "%d - capacity\n"
@@ -158,19 +159,19 @@ int stack_dump(struct stack*stk) {
     return 0;
 }
 
-int realloc_up(struct stack *stk) {
+int realloc_up(Stack *stk) {
     stk_assert(stk);
-    if (increase_coefficient <= 0) {
+    if (INCREASE_COEFFICIENT <= 0) {
         printf("change increase_coefficient\n"); // TODO исправить на возврат ошибки
         assert(0);
     }
-    stack_elem *new_ptr = (stack_elem *)realloc(stk->data, (stk -> capacity + 2 + increase_coefficient) * sizeof(stack_elem));
+    stack_elem *new_ptr = (stack_elem *)realloc(stk->data, (stk -> capacity + 2 + INCREASE_COEFFICIENT) * sizeof(stack_elem));
     if(new_ptr == NULL) {
         printf("memory reallocation error\n");
         assert(0);
     }
     stk->data = new_ptr;
-    stk->capacity = stk->capacity + increase_coefficient;
+    stk->capacity = stk->capacity + INCREASE_COEFFICIENT;
     stk->data[stk->capacity + 1] = CANARY;
     return 0;
 }

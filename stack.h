@@ -6,11 +6,13 @@
 #include <string.h>
 #include <assert.h>
 
-typedef char* stack_elem;
+typedef BinaryTree* stack_elem;
 
 const int INCREASE_COEFFICIENT = 10;
 
 const int STACK_CAPACITY = 100;
+
+struct BinaryTree;
 
 typedef struct Stack
 {
@@ -32,27 +34,27 @@ enum errorcode
     BAD_CANARY_2 =                  8,  // правая канарейка
 };
 
-int verificator(struct stack *stk);
+int verificator(Stack *stk);
 
 const char* decoder(int error);
 
-void stk_assert(struct stack *stk);
+void stk_assert(Stack *stk);
 
-int stk_null_check(struct stack *stk);
+int stk_null_check(Stack *stk);
 
-int put_canary(struct stack *stk);
+int put_canary(Stack *stk);
 
-int stack_destructor(struct stack* stk);
+int stack_destructor(Stack *stk);
 
-int stack_constructor(struct stack * stk, int capacity);
+int stack_constructor(Stack *stk, int capacity);
 
-int stack_push(struct stack*stk, stack_elem value);
+int stack_push(Stack *stk, stack_elem value);
 
-int stack_pop(struct stack*stk);
+int stack_pop(Stack *stk);
 
-int stack_dump(struct stack*stk);
+int stack_dump(Stack *stk);
 
-int realloc_up(struct stack *stk);
+int realloc_up(Stack *stk);
 
 const stack_elem CANARY = (stack_elem)0xBADC0FFEE;
 
