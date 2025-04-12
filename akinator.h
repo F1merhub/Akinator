@@ -98,10 +98,14 @@ BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
 int GetMode();
-// Errors DefinitionMode(const char* name_base);
+Errors DefinitionMode(const char* name_base);
+Errors Definition(BinaryTree *Root, const char* base_name);
 Stack* FindNodePath(const char* value, BinaryTree *Root);
 int FindNode(const char* value, BinaryTree *Node, Stack* node_path);
-
-
+Errors DefinitionMenu(BinaryTree *Root, const char *base_name);
+Errors ComparingMode(const char *base_name);
+Errors Comparing(BinaryTree *Root, const char *base_name);
+void clean_console();
+Errors ComparingMenu(BinaryTree *Root, const char *base_name);
 
 #endif // akinator_H

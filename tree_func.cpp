@@ -427,3 +427,6 @@ char* GetObject() {
     }
 }
 
+void clean_console() {
+    system("@cls||clear");
+}
