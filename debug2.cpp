@@ -1,25 +1,18 @@
+// #include "akinator.h"
+// #include "stack.h"
+#include <stdio.h>
 #include "akinator.h"
-#include "stack.h"
+
+#define COLOR_RED "\x1b[31m"
+//
+// int func(int size) {
+//     int array[size] = {0};
+//     return 0;
+// }
 
 int main() {
 
+    printf("%d", KEY_COUNT);
+    return 0;
 }
 
-int GetChar() {
-    int command = 0;
-    while (1) {
-        command = getchar();
-        while (getchar() != '\n');
-        switch(command) {
-            case(KEY_1): // Акинатор
-            case(KEY_2): // Определение
-            case(KEY_3):
-            case(KEY_4): // TODO распечатка
-            case(KEY_5): // Выход
-                return command;
-            default:
-                printf("Неверная комманда, попробуйте еще раз");
-                break;
-        }
-    }
-}

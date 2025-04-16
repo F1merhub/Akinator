@@ -12,7 +12,7 @@ Errors CreateNode(BinaryTree **Node, tree_element value)
 
     if (*Node == NULL)
     {
-        return ALLOCATION_ERROR;
+        return MEMORY_ALLOCATION_ERROR;
     }
 
     (*Node)->value = value;
@@ -105,6 +105,7 @@ Errors AddNodeLoop(BinaryTree **Root, tree_element value)
 Stack* FindNodePath(const char* value, BinaryTree *Root) {
     assert(value != NULL);
     assert(Root != NULL);
+
     Stack* node_path = (Stack*)calloc(1, sizeof(Stack)); // TODO проверка
     stack_constructor(node_path, STACK_CAPACITY);
     FindNode(value, Root, node_path);
@@ -232,7 +233,7 @@ Errors DeleteNode(BinaryTree **Root, tree_element value)
 int CompareValue(tree_element a, tree_element b) {
     switch (TREE_ELEM_TYPE) {
         case (INT):
-            return a - b;
+            return (int)(a - b);
         case (STRING):
             return strcmp(a, b);
         default:
@@ -288,46 +289,61 @@ Errors ReadTreeFromFile(BinaryTree** Root, const char* filename) {
 
     FILE* file = fopen(filename, "r");
     if (file == NULL) {
-        return FILE_ERROR;
+        return FILE_NOT_OPEN;
     }
 
-    // Пропускаем начальные пустые строки
     char line[MAX_LINE_LENGTH];
-    while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-        char* trimmed = trim_whitespace(line);
-        if (strlen(trimmed) == 0) continue;
-        if (trimmed[0] == '[') break;
+
+    while (1) {
+        if (fgets(line, MAX_LINE_LENGTH, file) == NULL) {
+            break;
+        }
+        char* clean_line = CutString(line);
+
+        if (strlen(clean_line) > 0) {
+            if (clean_line[0] == '[') {
+                break;
+            }
+        }
     }
 
-    Errors err = ParseSubtree(file, Root);
+    Errors err = ParseTree(file, Root);
     fclose(file);
     return err;
 }
 
-Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработать 3 функции считывания дерева
-    char line[MAX_LINE_LENGTH];                    // TODO проверить
-    char* content;
+Errors ParseTree(FILE* file, BinaryTree** Node) {
+    char line[MAX_LINE_LENGTH];
+    char* new_line;
     tree_element value;
 
 
     while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-        content = trim_whitespace(line);
-        if (strlen(content) == 0) continue;
+        new_line = CutString(line); // нормальная часть строки
+        if (strlen(new_line) == 0)
+            continue;
 
-
-        if (content[0] == '?') {
-            char* end = strchr(content + 1, '?');
-            if (!end) return FILE_FORMAT_ERROR;
+        if (new_line[0] == '?') {
+            char* end = strchr(new_line + 1, '?');
+            if (!end)
+                return FILE_FORMAT_ERROR;
             *end = '\0';
-            value = strdup(content + 1);
+            value = strdup(new_line + 1);
+            if (value == NULL) {
+                return MEMORY_ALLOCATION_ERROR;
+            }
         }
-        else if (content[0] == '`') {
-            char* end = strchr(content + 1, '`');
-            if (!end) return FILE_FORMAT_ERROR;
+        else if (new_line[0] == '`') {
+            char* end = strchr(new_line + 1, '`');
+            if (!end)
+                return FILE_FORMAT_ERROR;
             *end = '\0';
-            value = strdup(content + 1);
+            value = strdup(new_line + 1);
+            if (value == NULL) {
+                return MEMORY_ALLOCATION_ERROR;
+            }
         }
-        else if (content[0] == ']') {
+        else if (new_line[0] == ']') {
             return OK;
         }
         else {
@@ -336,22 +352,25 @@ Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработ
 
 
         Errors err = CreateNode(Node, value);
-        if (err != OK) return err;
+        if (err != OK)
+            return err;
 
 
         while (fgets(line, MAX_LINE_LENGTH, file) != NULL) {
-            content = trim_whitespace(line);
-            if (strlen(content) == 0) continue;
+            new_line = CutString(line);
+            if (strlen(new_line) == 0)
+                continue;
 
-            if (content[0] == '[') {
+            if (new_line[0] == '[') {
                 if ((*Node)->right == NULL) {
-                    err = ParseSubtree(file, &((*Node)->right));
+                    err = ParseTree(file, &((*Node)->right));
                 } else {
-                    err = ParseSubtree(file, &((*Node)->left));
+                    err = ParseTree(file, &((*Node)->left));
                 }
-                if (err != OK) return err;
+                if (err != OK)
+                    return err;
             }
-            else if (content[0] == ']') {
+            else if (new_line[0] == ']') {
                 return OK;
             }
         }
@@ -360,10 +379,12 @@ Errors ParseSubtree(FILE* file, BinaryTree** Node) { // FIXME переработ
     return OK;
 }
 
-char* trim_whitespace(char* str) {
-    while (isspace(*str)) str++;
-    char* end = str + strlen(str) - 1;
-    while (end > str && isspace(*end)) end--;
+char* CutString(char* str) {
+    while (isspace(*str)) // переставляем указатель на первй непробельный
+        str++;
+    char* end = str + strlen(str) - 1; // создаем указ на последний символ
+    while (end > str && isspace(*end))
+        end--;
     *(end + 1) = '\0';
     return str;
 }
@@ -378,7 +399,7 @@ int GetAnswer() {
                 printf("Ошибка стандартного потока ввода, попробуйте еще раз\n"); // NOTE или лучше ошибку?
         }
         else {
-            int len = strlen(buffer);
+            int len = (int)strlen(buffer);
             if (len > 0 && buffer[len - 1] == '\n') { // если все хорошо
                 buffer[len-1] = '\0';
                 if (buffer[0] == NULL) {
@@ -405,9 +426,10 @@ int GetAnswer() {
 
 char* GetObject() {
     char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-    // if (object_buffer == NULL) {
-    //     return ALLOCATION_ERROR; // TODO как обработать ошибки
-    // }
+    if (object_buffer == NULL) {
+        return object_buffer;
+    }
+
     while (1) {
         if(fgets(object_buffer, MAX_LINE_LENGTH, stdin) == NULL) {
             if (feof(stdin))
@@ -415,7 +437,7 @@ char* GetObject() {
             else
                 printf("Ошибка стандартного потока ввода, попробуйте еще раз\n"); // NOTE или лучше ошибку?
         }
-        int len = strlen(object_buffer);
+        int len = (int)strlen(object_buffer);
         if (len > 0 && object_buffer[len - 1] == '\n') { // если все хорошо
             object_buffer[len-1] = '\0';
             return object_buffer;
@@ -429,25 +451,4 @@ char* GetObject() {
 
 void clean_console() {
     system("@cls||clear");
-}
-
-int GetChar() {
-    int command = 0;
-    while (1) {
-        command = getchar();
-        while (getchar() != '\n');
-        switch(command) {
-            case(KEY_1): // Акинатор
-            case(KEY_2): // Определение
-            case(KEY_3):
-            case(KEY_4): // TODO распечатка
-            case(KEY_5): // Выход
-                return command;
-                break;
-            default:
-                printf("Неверная комманда, попробуйте еще раз\n"
-                       "Ваш ответ: ");
-                break;
-        }
-    }
 }

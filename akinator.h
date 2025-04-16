@@ -27,6 +27,24 @@ typedef int tree_element;
 
 #endif
 
+#define COLOR_RED "\x1b[31m"
+
+#define NULL_CHECK_AND_RETURN(pointer)      \
+    do {                                    \
+        if (pointer == NULL) {              \
+            return MEMORY_ALLOCATION_ERROR; \
+        }                                   \
+    } while(0)                              \
+
+#define CALL_AND_RETURN_ERROR(func_call)    \
+    do {                                    \
+        Errors error = (func_call);         \
+        if (error != OK) {                  \
+            return error;                   \
+        }                                   \
+    } while(0)                              \
+
+
 struct Stack;
 
 typedef struct BinaryTree
@@ -38,13 +56,11 @@ typedef struct BinaryTree
 
 enum Errors
 {
-    OK                    = 0,
-    ALLOCATION_ERROR      = 1,
-    NODE_NULL             = 2,
-    FILE_NOT_OPEN         = 3,
-    FILE_FORMAT_ERROR     = 4,
-    FILE_ERROR            = 5,
-    STDIN_ERROR           = 6,
+    OK                       = 0,
+    MEMORY_ALLOCATION_ERROR  = 1,
+    FILE_NOT_OPEN            = 3,
+    FILE_FORMAT_ERROR        = 4,
+    STDIN_ERROR              = 6,
 };
 
 enum Type
@@ -66,7 +82,8 @@ enum Keys
     KEY_2 = 50,
     KEY_3 = 51,
     KEY_4 = 52,
-    KEY_5 = 53
+    KEY_5 = 53,
+    KEY_COUNT
 };
 
 const size_t DUMP_BUFFER_SIZE = 20000;
@@ -82,22 +99,18 @@ Errors TreeDumpDot(BinaryTree *Root);
 int GenerateGraph(BinaryTree *Node, char* buffer, int* buffer_len, const size_t BUFFER_SIZE);
 int CompareValue(tree_element a, tree_element b);
 Errors ReadTreeFromFile(BinaryTree** root, const char* base_name);
-Errors ParseSubtree(FILE* base, BinaryTree** node);
+Errors ParseTree(FILE* base, BinaryTree** node);
 Errors TreeTraversal(BinaryTree *Node, int level);
 Errors PrintTree(BinaryTree *Root);
-char* trim_whitespace(char* str);
-Errors ReadTreeFromFile(BinaryTree** Root, const char* filename);
-Errors ParseSubtree(FILE* file, BinaryTree** Node);
-char* trim_whitespace(char* str);
-void AkinatorMenu(BinaryTree *Root, const char* base_name);
-void AkinatorPlay(BinaryTree *Root);
+char* CutString(char* str);
+Errors AkinatorMenu(BinaryTree *Root, const char* base_name);
+Errors AkinatorPlay(BinaryTree *Root);
 Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
-void Akinator(BinaryTree *Root, const char* base_name);
+Errors Akinator(BinaryTree *Root, const char* base_name);
 BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
-int GetMode();
 Errors DefinitionMode(const char* name_base);
 Errors Definition(BinaryTree *Root, const char* base_name);
 Stack* FindNodePath(const char* value, BinaryTree *Root);
@@ -107,6 +120,10 @@ Errors ComparingMode(const char *base_name);
 Errors Comparing(BinaryTree *Root, const char *base_name);
 void clean_console();
 Errors ComparingMenu(BinaryTree *Root, const char *base_name);
-int GetChar();
+int GetMode(int mode_count);
+void PrintError(Errors error);
+const char* ErrorsDecoder(Errors error);
+Errors BaseDump(const char *base_name);
+
 
 #endif // akinator_H

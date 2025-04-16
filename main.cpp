@@ -3,6 +3,7 @@
 int main(int argc, char *argv[])
 {
     const char* base_name = NULL;
+    Errors error = OK;
 
     if (argc == 1)
     {
@@ -14,7 +15,8 @@ int main(int argc, char *argv[])
         base_name = argv[1];
     }
 
-    Menu(base_name);
+    error = Menu(base_name);
+    PrintError(error);
 
-    return 0;
+    return error;
 }
