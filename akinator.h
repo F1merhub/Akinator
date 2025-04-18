@@ -58,6 +58,7 @@ enum Errors
 {
     OK                       = 0,
     MEMORY_ALLOCATION_ERROR  = 1,
+    COMMAND_ERROR            = 2,
     FILE_NOT_OPEN            = 3,
     FILE_FORMAT_ERROR        = 4,
     STDIN_ERROR              = 6,

@@ -402,8 +402,9 @@ int GetAnswer() {
             int len = (int)strlen(buffer);
             if (len > 0 && buffer[len - 1] == '\n') { // если все хорошо
                 buffer[len-1] = '\0';
-                if (buffer[0] == NULL) {
-                    printf("Ошибка, введите ответ yes/no");
+                if (buffer[0] == '\0') {
+                    printf("Ошибка, введите ответ yes/no\n"
+                           "Ваш ответ: ");
                 }
                 else if (strstr("yes", buffer) != NULL) {
                     return 1;

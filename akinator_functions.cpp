@@ -32,7 +32,7 @@ Errors Menu(const char* base_name) {
             CALL_AND_RETURN_ERROR(BaseDump(base_name));
             break;
         case(KEY_5):                                            // Выход
-            printf("Спасибо за игру");
+            printf("Спасибо за игру\n");
             break;
         default:
             assert(0);
@@ -48,7 +48,11 @@ Errors BaseDump(const char *base_name) {
     BinaryTree *Root = NULL;
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
     CALL_AND_RETURN_ERROR(TreeDumpDot(Root));
-    system("dot -Tpng GraphDump\\dump.dot -o GraphDump\\dump.png");
+
+    int error = system("dot -Tpng GraphDump\\dump.dot -o GraphDump\\dump.png");
+    if (error != 0)
+        return COMMAND_ERROR;
+
     printf("\nБаза распечата в файл \n");
     FreeTree(&Root);
     CALL_AND_RETURN_ERROR(Menu(base_name));
@@ -421,6 +425,8 @@ const char* ErrorsDecoder(Errors error) {
             return "no errors";
         case MEMORY_ALLOCATION_ERROR:
             return "memory allocation error";
+        case COMMAND_ERROR:
+            return "command did not work properly";
         case FILE_NOT_OPEN:
             return "file was not open";
         case FILE_FORMAT_ERROR:
