@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
 
     if (argc == 1)
     {
-        base_name = "Base.txt";
+        base_name = "./Base/Base.txt";
     }
 
     else if (argc == 2)

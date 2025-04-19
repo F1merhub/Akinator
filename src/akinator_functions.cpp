@@ -371,6 +371,7 @@ Errors AkinatorPlay(BinaryTree *Root) {
             if (CheckObjectExistance(Root, object_buffer) != NULL) {
                 printf("Объект был найден в базе данных\n"
                         "Попробуйте сыграть еще раз\n");
+                free(object_buffer);
             }
             else {
 
@@ -422,18 +423,20 @@ void PrintError(Errors error) {
 const char* ErrorsDecoder(Errors error) {
     switch(error) {
         case OK:
-            return "no errors";
+            return "no errors\n";
         case MEMORY_ALLOCATION_ERROR:
-            return "memory allocation error";
+            return "memory allocation error\n";
         case COMMAND_ERROR:
-            return "command did not work properly";
+            return "command did not work properly\n";
         case FILE_NOT_OPEN:
-            return "file was not open";
+            return "file was not open\n";
         case FILE_FORMAT_ERROR:
-            return "file has wrong format";
+            return "file has wrong format\n";
         case STDIN_ERROR:
-            return "stdin input error";
+            return "stdin input error\n";
         default:
-            return "unknown error";
+            return "unknown error\n";
     }
 }
+
+
