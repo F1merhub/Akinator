@@ -16,7 +16,7 @@ Errors Menu(const char* base_name) {
            "Ваш ответ: ");
 
     int command = 0;
-    command = GetMode(5);
+    command = GetMode(5); // TODO const
 
     switch(command) {
         case(KEY_1):                                            // Акинатор
@@ -49,7 +49,7 @@ Errors BaseDump(const char *base_name) {
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
     CALL_AND_RETURN_ERROR(TreeDumpDot(Root));
 
-    int error = system("dot -Tpng GraphDump\\dump.dot -o GraphDump\\dump.png");
+    int error = system("dot -Tpng ./GraphDump\\dump.dot -o ./GraphDump\\dump.png");
     if (error != 0)
         return COMMAND_ERROR;
 
@@ -204,7 +204,7 @@ Errors Definition(BinaryTree *Root, const char* base_name) {
 
     printf("Введите слово, определение которого хотите посмотреть\n"
            "Ваше слово: ");
-    char *object = GetObject(); // NOTE не забыть очистить память в конце
+    char *object = GetObject(); // FIXME не забыть очистить память в конце
     NULL_CHECK_AND_RETURN(object);
 
     clean_console();
@@ -277,7 +277,7 @@ Errors AkinatorMode(const char* base_name) {
 
     assert(base_name != NULL);
 
-    BinaryTree *Root = NULL;
+    BinaryTree *Root = NULL; // FIXME free
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
     CALL_AND_RETURN_ERROR(Akinator(Root, base_name));
 
@@ -301,22 +301,18 @@ Errors AkinatorMenu(BinaryTree *Root, const char* base_name) {
 
     printf("Выберите Режим\n"
             "[1] - Играть\n"
-            "[2] - Сохранить Базу данных\n"
-            "[3] - Выход\n"
+            "[2] - Выход\n"
             "Ваш ответ: ");
 
     int command = 0;
-    command = GetMode(3);
+    command = GetMode(2);
 
     switch(command) {
         case(KEY_1):
             clean_console();
             CALL_AND_RETURN_ERROR(Akinator(Root, base_name));
             break;
-        case(KEY_2): // TODO Сделать сохранение базы данных
-            assert(0);
-            break;
-        case(KEY_3):
+        case(KEY_2):
             FreeTree(&Root);
             CALL_AND_RETURN_ERROR(Menu(base_name));
             break;

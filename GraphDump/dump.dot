@@ -2,113 +2,114 @@ digraph G {
 	rankdir = TB;
 	bgcolor="#1e1e2e";
 	node [shape=rectangle, style=filled, fontname=Helvetica, fontsize=12, fillcolor="#89b4fa", color="#cba6f7", fontcolor="#1e1e2e"];
-	node000001E7EF34E1C0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75b70 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E1C0</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75b70</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>animal</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 000001E7EF34E0E0</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 000001E7EF34E080</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0x4a75e30</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0x4a75c20</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E0E0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75e30 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E0E0</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75e30</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>mathematician</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 000001E7EF34E060</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 000001E7EF34E2C0</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0x4a760f0</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0x4a75ee0</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E060 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a760f0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E060</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a760f0</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>proger</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 000001E7EF34E020</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 000001E7EF34E140</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0x4a76250</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0x4a761a0</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E020 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a76250 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E020</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a76250</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>Holin</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E060:left -> node000001E7EF34E020 [color="#a6e3a1"]
-	node000001E7EF34E140 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a760f0:left -> node0x4a76250 [color="#a6e3a1"]
+	node0x4a761a0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E140</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a761a0</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>Ded</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E060:right -> node000001E7EF34E140 [color="#f9e2af"]
-	node000001E7EF34E0E0:left -> node000001E7EF34E060 [color="#a6e3a1"]
-	node000001E7EF34E2C0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a760f0:right -> node0x4a761a0 [color="#f9e2af"]
+	node0x4a75e30:left -> node0x4a760f0 [color="#a6e3a1"]
+	node0x4a75ee0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E2C0</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75ee0</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>kind</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 000001E7EF34E260</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 000001E7EF34E100</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0x4a76040</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0x4a75f90</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E260 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a76040 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E260</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a76040</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>Umnov</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E2C0:left -> node000001E7EF34E260 [color="#a6e3a1"]
-	node000001E7EF34E100 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75ee0:left -> node0x4a76040 [color="#a6e3a1"]
+	node0x4a75f90 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E100</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75f90</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>Chubarov</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E2C0:right -> node000001E7EF34E100 [color="#f9e2af"]
-	node000001E7EF34E0E0:right -> node000001E7EF34E2C0 [color="#f9e2af"]
-	node000001E7EF34E1C0:left -> node000001E7EF34E0E0 [color="#a6e3a1"]
-	node000001E7EF34E080 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75ee0:right -> node0x4a75f90 [color="#f9e2af"]
+	node0x4a75e30:right -> node0x4a75ee0 [color="#f9e2af"]
+	node0x4a75b70:left -> node0x4a75e30 [color="#a6e3a1"]
+	node0x4a75c20 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E080</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75c20</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>rt_cat</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 000001E7EF34E2E0</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 000001E7EF34E180</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0x4a75d80</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0x4a75cd0</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E2E0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75d80 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E2E0</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75d80</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>luna</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E080:left -> node000001E7EF34E2E0 [color="#a6e3a1"]
-	node000001E7EF34E180 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
+	node0x4a75c20:left -> node0x4a75d80 [color="#a6e3a1"]
+	node0x4a75cd0 [shape=plaintext; style=filled; color="#fcf0d2"; fillcolor="#b2d4fc"; label = <
 		         <table BORDER="0" CELLBORDER="1" CELLSPACING="0" CELLPADDING="6" BGCOLOR="#a1c4fd" COLOR="#4f4f4f">
-			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 000001E7EF34E180</b></FONT></td></tr>
+			           <tr><td align='center' colspan='2'><FONT COLOR='#3b4252'><b>Node: 0x4a75cd0</b></FONT></td></tr>
 			           <tr><td align='center' colspan='2'><FONT COLOR='#2e8b57'>Value: <b>poltarashka</b></FONT></td></tr>
 			           <tr>
-			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: 0000000000000000</b></FONT></td>
-			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: 0000000000000000</b></FONT></td>
+			               <td WIDTH='150' PORT='left'  align='center'><FONT COLOR='#006400'><b>Left: (nil)</b></FONT></td>
+			               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: (nil)</b></FONT></td>
 			           </tr>
 		         </table> >];
-	node000001E7EF34E080:right -> node000001E7EF34E180 [color="#f9e2af"]
-	node000001E7EF34E1C0:right -> node000001E7EF34E080 [color="#f9e2af"]
+	node0x4a75c20:right -> node0x4a75cd0 [color="#f9e2af"]
+	node0x4a75b70:right -> node0x4a75c20 [color="#f9e2af"]
 }
+

@@ -24,7 +24,7 @@ Errors CreateNode(BinaryTree **Node, tree_element value)
 
 Errors FreeTree(BinaryTree **Node)
 {
-    assert(Node); // нулевой указатель может передать сам программист
+    assert(Node);
 
     if (*Node == NULL)
     {
@@ -450,6 +450,9 @@ char* GetObject() {
     }
 }
 
-void clean_console() {
-    system("@cls||clear");
+Errors clean_console() {
+    int error = system("@cls||clear");
+    if (error != 0)
+        return COMMAND_ERROR;
+    return OK;
 }

@@ -119,7 +119,7 @@ int FindNode(const char* value, BinaryTree *Node, Stack* node_path);
 Errors DefinitionMenu(BinaryTree *Root, const char *base_name);
 Errors ComparingMode(const char *base_name);
 Errors Comparing(BinaryTree *Root, const char *base_name);
-void clean_console();
+Errors clean_console();
 Errors ComparingMenu(BinaryTree *Root, const char *base_name);
 int GetMode(int mode_count);
 void PrintError(Errors error);
