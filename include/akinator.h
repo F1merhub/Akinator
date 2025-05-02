@@ -38,9 +38,9 @@ typedef int tree_element;
 
 #define CALL_AND_RETURN_ERROR(func_call)    \
     do {                                    \
-        Errors error = (func_call);         \
-        if (error != OK) {                  \
-            return error;                   \
+        Errors err = (func_call);           \
+        if (err != OK) {                    \
+            return err;                     \
         }                                   \
     } while(0)                              \
 
@@ -104,23 +104,23 @@ Errors ParseTree(FILE* base, BinaryTree** node);
 Errors TreeTraversal(BinaryTree *Node, int level);
 Errors PrintTree(BinaryTree *Root);
 char* CutString(char* str);
-Errors AkinatorMenu(BinaryTree *Root, const char* base_name);
+Errors AkinatorMenu(BinaryTree **Root, const char* base_name);
 Errors AkinatorPlay(BinaryTree *Root);
 Errors Menu(const char* base_name);
 Errors AkinatorMode(const char* base_name);
-Errors Akinator(BinaryTree *Root, const char* base_name);
+Errors Akinator(BinaryTree **Root, const char* base_name);
 BinaryTree* CheckObjectExistance(BinaryTree *Root, tree_element value);
 int GetAnswer();
 char* GetObject();
 Errors DefinitionMode(const char* name_base);
-Errors Definition(BinaryTree *Root, const char* base_name);
+Errors Definition(BinaryTree **Root, const char* base_name);
 Stack* FindNodePath(const char* value, BinaryTree *Root);
 int FindNode(const char* value, BinaryTree *Node, Stack* node_path);
-Errors DefinitionMenu(BinaryTree *Root, const char *base_name);
+Errors DefinitionMenu(BinaryTree **Root, const char *base_name);
 Errors ComparingMode(const char *base_name);
-Errors Comparing(BinaryTree *Root, const char *base_name);
+Errors Comparing(BinaryTree **Root, const char *base_name);
 Errors clean_console();
-Errors ComparingMenu(BinaryTree *Root, const char *base_name);
+Errors ComparingMenu(BinaryTree **Root, const char *base_name);
 int GetMode(int mode_count);
 void PrintError(Errors error);
 const char* ErrorsDecoder(Errors error);

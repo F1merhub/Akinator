@@ -106,7 +106,7 @@ Stack* FindNodePath(const char* value, BinaryTree *Root) {
     assert(value != NULL);
     assert(Root != NULL);
 
-    Stack* node_path = (Stack*)calloc(1, sizeof(Stack)); // TODO проверка
+    Stack* node_path = (Stack*)calloc(1, sizeof(Stack));
     stack_constructor(node_path, STACK_CAPACITY);
     FindNode(value, Root, node_path);
     return node_path;
@@ -425,7 +425,7 @@ int GetAnswer() {
     }
 }
 
-char* GetObject() {
+char* GetObject() { // NOTE освободить память в месте использования
     char *object_buffer = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
     if (object_buffer == NULL) {
         return object_buffer;

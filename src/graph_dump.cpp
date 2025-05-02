@@ -25,8 +25,8 @@ Errors TreeDumpDot(BinaryTree* Root)
 
     buffer_len += snprintf(buffer + buffer_len, DUMP_BUFFER_SIZE - (size_t)buffer_len, "}\n");
 
-    FILE* dump_file = fopen("GraphDump\\dump.dot", "w+");
-    if (!dump_file)
+    FILE* dump_file = fopen("./GraphDump/dump.dot", "w+");
+    if (dump_file == NULL)
     {
         fprintf(stderr, "Failed to open dump.dot\n");
         free(buffer);

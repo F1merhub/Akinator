@@ -49,18 +49,18 @@ Errors BaseDump(const char *base_name) {
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
     CALL_AND_RETURN_ERROR(TreeDumpDot(Root));
 
-    int error = system("dot -Tpng ./GraphDump\\dump.dot -o ./GraphDump\\dump.png");
+    int error = system("dot -Tpng ./GraphDump/dump.dot -o ./GraphDump/dump.png");
     if (error != 0)
         return COMMAND_ERROR;
 
-    printf("\nБаза распечата в файл \n");
+    printf("\nБаза распечата в файл dump.png\n");
     FreeTree(&Root);
     CALL_AND_RETURN_ERROR(Menu(base_name));
 
     return OK;
 }
 
-Errors ComparingMenu(BinaryTree *Root, const char *base_name) {
+Errors ComparingMenu(BinaryTree **Root, const char *base_name) {
     assert(Root != NULL);
     assert(base_name != NULL);
 
@@ -78,7 +78,7 @@ Errors ComparingMenu(BinaryTree *Root, const char *base_name) {
             CALL_AND_RETURN_ERROR(Comparing(Root, base_name));
             break;
         case(KEY_2):
-            FreeTree(&Root);
+            FreeTree(Root);
             CALL_AND_RETURN_ERROR(Menu(base_name));
             break;
         default:
@@ -94,17 +94,17 @@ Errors ComparingMode(const char *base_name) {
     clean_console();
     BinaryTree *Root = NULL;
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
-    CALL_AND_RETURN_ERROR(Comparing(Root, base_name));
+    CALL_AND_RETURN_ERROR(Comparing(&Root, base_name));
 
     return OK;
 }
 
-Errors Comparing(BinaryTree *Root, const char *base_name) {
+Errors Comparing(BinaryTree **Root, const char *base_name) {
     assert((base_name != NULL) && (Root != NULL));
 
     printf("Введите 2 слова, которые вы хотите сравнить\n"
            "Первое слово: ");
-    char *object1 = GetObject(); // TODO не забыть очистить память в конце
+    char *object1 = GetObject();
     NULL_CHECK_AND_RETURN(object1);
 
     printf("Второе слово: ");
@@ -113,8 +113,8 @@ Errors Comparing(BinaryTree *Root, const char *base_name) {
 
     clean_console();
 
-    Stack *node_path1 = FindNodePath(object1, Root);
-    Stack *node_path2 = FindNodePath(object2, Root);
+    Stack *node_path1 = FindNodePath(object1, *Root);
+    Stack *node_path2 = FindNodePath(object2, *Root);
     if (node_path1 == NULL || node_path2 == NULL) {
         return MEMORY_ALLOCATION_ERROR;
     }
@@ -179,10 +179,14 @@ Errors Comparing(BinaryTree *Root, const char *base_name) {
         }
     }
 
+    free(object1);
+    free(object2);
+
     stack_destructor(node_path1);
     stack_destructor(node_path2);
     free(node_path1);
     free(node_path2);
+
     CALL_AND_RETURN_ERROR(ComparingMenu(Root, base_name));
 
     return OK;
@@ -194,21 +198,21 @@ Errors DefinitionMode(const char* base_name) {
     clean_console();
     BinaryTree *Root = NULL;
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
-    CALL_AND_RETURN_ERROR(Definition(Root, base_name));
+    CALL_AND_RETURN_ERROR(Definition(&Root, base_name));
 
     return OK;
 }
 
-Errors Definition(BinaryTree *Root, const char* base_name) {
-    assert((base_name != NULL) && (Root != NULL));
+Errors Definition(BinaryTree **Root, const char* base_name) {
+    assert((base_name != NULL) && (Root != NULL) && (*Root != NULL));
 
     printf("Введите слово, определение которого хотите посмотреть\n"
            "Ваше слово: ");
-    char *object = GetObject(); // FIXME не забыть очистить память в конце
+    char *object = GetObject();
     NULL_CHECK_AND_RETURN(object);
 
     clean_console();
-    Stack *node_path = FindNodePath(object, Root);
+    Stack *node_path = FindNodePath(object, *Root);
     if (node_path == NULL)
         return MEMORY_ALLOCATION_ERROR;
 
@@ -242,11 +246,12 @@ Errors Definition(BinaryTree *Root, const char* base_name) {
 
     stack_destructor(node_path); // содержмиое
     free(node_path); // сам указателть
+    free(object);
     CALL_AND_RETURN_ERROR(DefinitionMenu(Root, base_name));
     return OK;
 }
 
-Errors DefinitionMenu(BinaryTree *Root, const char *base_name) {
+Errors DefinitionMenu(BinaryTree **Root, const char *base_name) {
     assert(Root != NULL);
     assert(base_name != NULL);
 
@@ -264,7 +269,7 @@ Errors DefinitionMenu(BinaryTree *Root, const char *base_name) {
             CALL_AND_RETURN_ERROR(Definition(Root, base_name));
             break;
         case(KEY_2):
-            FreeTree(&Root);
+            FreeTree(Root);
             CALL_AND_RETURN_ERROR(Menu(base_name));
             break;
         default:
@@ -277,27 +282,30 @@ Errors AkinatorMode(const char* base_name) {
 
     assert(base_name != NULL);
 
-    BinaryTree *Root = NULL; // FIXME free
-    CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
-    CALL_AND_RETURN_ERROR(Akinator(Root, base_name));
-
+    BinaryTree *Root = NULL;
+    Errors error = ReadTreeFromFile(&Root, base_name);
+    if (error) {
+        FreeTree(&Root);
+        return error;
+    }
+    CALL_AND_RETURN_ERROR(Akinator(&Root, base_name));
     return OK;
 }
 
-Errors Akinator(BinaryTree *Root, const char* base_name) {
+Errors Akinator(BinaryTree **Root, const char* base_name) {
 
     assert(base_name != NULL);
-    assert(Root != NULL);
+    assert(Root != NULL && *Root != NULL);
 
     printf("Добро Пожаловать в Акинатор\n"
            "Я буду спрашивать признак, а ты отвечай y/n\n");
-    CALL_AND_RETURN_ERROR(AkinatorPlay(Root));
+    CALL_AND_RETURN_ERROR(AkinatorPlay(*Root));
     CALL_AND_RETURN_ERROR(AkinatorMenu(Root, base_name));
 
     return OK;
 }
 
-Errors AkinatorMenu(BinaryTree *Root, const char* base_name) {
+Errors AkinatorMenu(BinaryTree **Root, const char* base_name) {
 
     printf("Выберите Режим\n"
             "[1] - Играть\n"
@@ -305,7 +313,7 @@ Errors AkinatorMenu(BinaryTree *Root, const char* base_name) {
             "Ваш ответ: ");
 
     int command = 0;
-    command = GetMode(2);
+    command = GetMode(2); 
 
     switch(command) {
         case(KEY_1):
@@ -313,7 +321,7 @@ Errors AkinatorMenu(BinaryTree *Root, const char* base_name) {
             CALL_AND_RETURN_ERROR(Akinator(Root, base_name));
             break;
         case(KEY_2):
-            FreeTree(&Root);
+            FreeTree(Root);
             CALL_AND_RETURN_ERROR(Menu(base_name));
             break;
         default:
@@ -375,15 +383,18 @@ Errors AkinatorPlay(BinaryTree *Root) {
                 CreateNode(&(cur->left), NULL);
                 cur->right->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
                 cur->left->value = (char *)calloc(MAX_LINE_LENGTH, sizeof(char));
-                if (cur->right->value == NULL || cur->left->value == NULL)
+                if (cur->right->value == NULL || cur->left->value == NULL) {
+                    free(object_buffer);
                     return MEMORY_ALLOCATION_ERROR;
-
+                }
                 strcpy(cur->right->value, object_buffer);
                 strcpy(cur->left->value, cur->value);
 
                 printf("Чем %s отличается от %s?\n"
                     "Ваш Ответ: ", cur->right->value, cur->value);
 
+                free(cur->value);
+                free(object_buffer);
                 cur->value = GetObject();
                 NULL_CHECK_AND_RETURN(cur->value);
             }
