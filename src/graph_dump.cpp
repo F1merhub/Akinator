@@ -55,14 +55,14 @@ int GenerateGraph(BinaryTree *Node, char* buffer, int* buffer_len, const size_t 
                             "\t\t\t               <td WIDTH='150' PORT='right' align='center'><FONT COLOR='#b94e48'><b>Right: %p</b></FONT></td>\n"
                             "\t\t\t           </tr>\n"
                             "\t\t         </table> >];\n",
-                            Node, Node, Node->value, Node->left, Node->right);
+                            (void*)Node, (void*)Node, Node->value, (void*)Node->left, (void*)Node->right);
 
     // Рекурсивно генерируем левое поддерево
     if (Node->left)
     {
         *buffer_len += GenerateGraph(Node->left, buffer, buffer_len, BUFFER_SIZE);
         *buffer_len += snprintf(buffer + *buffer_len, BUFFER_SIZE - (size_t)*buffer_len,
-                                 "\tnode%p:left -> node%p [color=\"#a6e3a1\"]\n", Node, Node->left);
+                                 "\tnode%p:left -> node%p [color=\"#a6e3a1\"]\n", (void*)Node, (void*)Node->left);
     }
 
     // Рекурсивно генерируем правое поддерево
@@ -70,7 +70,7 @@ int GenerateGraph(BinaryTree *Node, char* buffer, int* buffer_len, const size_t 
     {
         *buffer_len += GenerateGraph(Node->right, buffer, buffer_len, BUFFER_SIZE);
         *buffer_len += snprintf(buffer + *buffer_len, BUFFER_SIZE - (size_t)*buffer_len,
-                                 "\tnode%p:right -> node%p [color=\"#f9e2af\"]\n", Node, Node->right);
+                                 "\tnode%p:right -> node%p [color=\"#f9e2af\"]\n", (void*)Node, (void*)Node->right);
     }
 
     return 0;

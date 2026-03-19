@@ -148,13 +148,13 @@ int stack_pop(Stack *stk) { // добавить реаллок вниз
 int stack_dump(Stack *stk) {
     stk_assert(stk);
     for (int i = 1; i < (stk->size) + 1; ++i) {
-        printf("%p ", stk->data[i]);
+        printf("%p ", (void*)stk->data[i]);
     }
     printf("\n"
            "%d - capacity\n"
            "%d - size\n"
            "%p - pointer on data\n",
-           stk->capacity, stk->size, stk->data);
+           stk->capacity, stk->size, (void*)stk->data);
 
     return 0;
 }

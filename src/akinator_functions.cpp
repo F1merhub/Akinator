@@ -1,5 +1,7 @@
 #include "akinator.h"
 #include "stack.h"
+#include <sys/stat.h>
+#include <sys/types.h>
 
 Errors Menu(const char* base_name) {
     assert(base_name != NULL);
@@ -16,7 +18,7 @@ Errors Menu(const char* base_name) {
            "Ваш ответ: ");
 
     int command = 0;
-    command = GetMode(5); // TODO const
+    command = GetMode(5); 
 
     switch(command) {
         case(KEY_1):                                            // Акинатор
@@ -45,6 +47,7 @@ Errors Menu(const char* base_name) {
 Errors BaseDump(const char *base_name) {
     assert(base_name);
 
+    mkdir("GraphDump", 0777);
     BinaryTree *Root = NULL;
     CALL_AND_RETURN_ERROR(ReadTreeFromFile(&Root, base_name));
     CALL_AND_RETURN_ERROR(TreeDumpDot(Root));
